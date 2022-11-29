@@ -95,3 +95,8 @@ div#page,
 div#archive {
 	border-radius: 20px;
 }
+
+/* 顶部磁铁导航 */
+#recent-posts > .recent-post-item:first-of-type {
+	margin-top: 0px !important;
+}

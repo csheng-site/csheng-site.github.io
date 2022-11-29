@@ -195,14 +195,12 @@ categoryBar:
   column: odd # odd：3列 | even：4列
   row: 1 #显示行数，默认两行，超过行数切换为滚动显示
   message:
-    - descr: 这是C++
+    - descr: 这是后端
       cover: https://source.fomal.cc/img/default_cover_43.webp
-    - descr: 这是Hexo
+    - descr: 这是vue
       cover: https://source.fomal.cc/img/default_cover_44.webp
-    - descr: 这是Python
+    - descr: 这是面试
       cover: https://source.fomal.cc/img/default_cover_45.webp
-    - descr: 这是Java
-      cover: https://source.fomal.cc/img/default_cover_46.webp
   custom_css: https://npm.elemecdn.com/hexo-butterfly-categories-card@1.0.0/lib/categorybar.css
 
 magnet:
@@ -212,18 +210,15 @@ magnet:
   type: categories
   devide: 2
   display:
-    - name: C++
-      display_name: C++教程
+    - name: 后端1
+      display_name: 后端教程
       icon: 📚
-    - name: Hexo
-      display_name: Hexo教程
+    - name: vue1
+      display_name: vue教程
       icon: 🎮
-    - name: Python
-      display_name: Python教程
+    - name: 面试1
+      display_name: 面试教程
       icon: 🐱‍👓
-    - name: Java
-      display_name: Java教程
-      icon: 👩‍💻
   color_setting:
     text_color: black
     text_hover_color: white
