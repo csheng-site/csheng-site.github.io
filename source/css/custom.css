@@ -26,39 +26,6 @@
 	background: transparent !important;
 }
 
-/* 夜间模式遮罩透明 */
-[data-theme='dark'] #footer::before {
-	background: transparent !important;
-}
-[data-theme='dark'] #page-header::before {
-	background: transparent !important;
-}
-
-/* 小冰分类分类磁铁黑夜模式适配 */
-/* 一般状态 */
-[data-theme='dark'] .magnet_link_context {
-	background: #1e1e1e;
-	color: antiquewhite;
-}
-/* 鼠标悬浮状态 */
-[data-theme='dark'] .magnet_link_context:hover {
-	background: #3ecdf1;
-	color: #f2f2f2;
-}
-
-@font-face {
-	/* 为载入的字体取名字(随意) */
-	font-family: 'YSHST';
-	/* 字体文件地址(相对或者绝对路径都可以) */
-	src: url(/font/优设好身体.ttf);
-	/* 定义加粗样式(加粗多少) */
-	font-weight: normal;
-	/* 定义字体样式(斜体/非斜体) */
-	font-style: normal;
-	/* 定义显示样式 */
-	font-display: block;
-}
-
 /* 翻页按钮居中 */
 #pagination {
 	width: 100%;
@@ -125,11 +92,6 @@
 	}
 }
 
-/* 黑夜模式适配 */
-[data-theme='dark'] #aside-content > .card-widget.card-info {
-	background: #191919ee;
-}
-
 /* 个人信息Follow me按钮 */
 #aside-content > .card-widget.card-info > #card-info-btn {
 	background-color: #3eb8be;
@@ -168,43 +130,12 @@ div#archive {
 	backdrop-filter: var(--backdrop-filter);
 }
 
-[data-theme='dark'] #page-header.nav-fixed #nav {
-	background: rgba(0, 0, 0, 0.7) !important;
-}
-
-/* 夜间模式遮罩 */
-[data-theme='dark'] #recent-posts > .recent-post-item,
-[data-theme='dark'] #aside-content .card-widget,
-[data-theme='dark'] div#post,
-[data-theme='dark'] div#archive,
-[data-theme='dark'] div#page {
-	background: var(--trans-dark);
-}
-
-/* 夜间模式页脚页头遮罩透明 */
-[data-theme='dark'] #footer::before {
-	background: transparent !important;
-}
-[data-theme='dark'] #page-header::before {
-	background: transparent !important;
-}
-
 /* 阅读模式 */
 .read-mode #aside-content .card-widget {
 	background: rgba(158, 204, 171, 0.5) !important;
 }
 .read-mode div#post {
 	background: rgba(158, 204, 171, 0.5) !important;
-}
-
-/* 夜间模式下的阅读模式 */
-[data-theme='dark'] .read-mode #aside-content .card-widget {
-	background: rgba(25, 25, 25, 0.9) !important;
-	color: #ffffff;
-}
-[data-theme='dark'] .read-mode div#post {
-	background: rgba(25, 25, 25, 0.9) !important;
-	color: #ffffff;
 }
 
 /*哔哩哔哩视频适配*/

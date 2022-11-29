@@ -164,7 +164,7 @@ post_meta:
 # wordcount (字數統計)
 # see https://butterfly.js.org/posts/ceeb73f/#字數統計
 wordcount:
-  enable: true
+  enable: false
   post_wordcount: true
   min2read: true
   total_wordcount: true
@@ -240,7 +240,7 @@ post_pagination: 1
 
 # Displays outdated notice for a post (文章過期提醒)
 noticeOutdate:
-  enable: true
+  enable: false
   style: flat # style: simple/flat
   limit_day: 365 # When will it be shown
   position: top # position: top/bottom
@@ -528,7 +528,7 @@ tag_ui: # 留空或 index
 # Website Background (設置網站背景)
 # can set it to color or image (可設置圖片 或者 顔色)
 # The formal of image: url(http://xxxxxx.com/xxx.jpg)
-background: url(https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E7%AE%80%E7%BA%A6%E5%BC%80%E5%85%B3%E5%A3%81%E7%BA%B8.jpeg)
+background: url(https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/wallpaper_red.jpg)
 
 # Footer Background
 footer_bg: false
@@ -537,7 +537,7 @@ footer_bg: false
 rightside-bottom:
 
 # Enter transitions (開啓網頁進入效果)
-enter_transitions: true
+enter_transitions: false
 
 # Background effects (背景特效)
 # --------------------------------------
@@ -611,22 +611,22 @@ beautify:
 # Global font settings
 # Don't modify the following settings unless you know how they work (非必要不要修改)
 font:
-  global-font-size: 15px
-  code-font-size: 14px
-  font-family: YSHST, -apple-system, BlinkMacSystemFont, "Segoe UI" , "Helvetica Neue" , Lato, Roboto, "PingFang SC" , "Microsoft JhengHei" , "Microsoft YaHei" , sans-serif
-  code-font-family: consolas, "Microsoft YaHei", Menlo, "PingFang SC", "Microsoft JhengHei", sans-serif
+  global-font-size: '15px'
+  code-font-size: '14px'
+  font-family: Source Han Sans Medium
+  code-font-family: Consolas
 
 # Font settings for the site title and site subtitle
 # 左上角網站名字 主頁居中網站名字
 blog_title_font:
   font_link:
-  font-family: YSHST, -apple-system, BlinkMacSystemFont, "Segoe UI" , "Helvetica Neue" , Lato, Roboto, "PingFang SC" , "Microsoft JhengHei" , "Microsoft YaHei" , sans-serif
+  font-family: 
 
 # The setting of divider icon (水平分隔線圖標設置)
 hr_icon:
   enable: true
-  icon: '\f2dc' # the unicode value of Font Awesome icon, such as '\3423'
-  icon-top: -10px
+  icon: # the unicode value of Font Awesome icon, such as '\3423'
+  icon-top: 
 
 # the subtitle on homepage (主頁subtitle)
 subtitle:
@@ -678,7 +678,7 @@ aside:
     button:
       enable: true
       icon: fab fa-github
-      text: 🛴前往小家...
+      text: 关注
       link: https://github.com/csheng-site
   card_announcement:
     enable: true
@@ -737,7 +737,7 @@ newest_comments:
 
 # Conversion between Traditional and Simplified Chinese (簡繁轉換)
 translate:
-  enable: true
+  enable: false
   # The text of a button
   default: 繁
   # the language of website (1 - Traditional Chinese/ 2 - Simplified Chinese）
@@ -754,14 +754,14 @@ readmode: 2
 
 # dark mode
 darkmode:
-  enable: true
+  enable: false
   # Toggle Button to switch dark/light mode
-  button: true
+  button: false
   # Switch dark/light mode automatically (自動切換 dark mode和 light mode)
   # autoChangeMode: 1  Following System Settings, if the system doesn't support dark mode, it will switch dark mode between 6 pm to 6 am
   # autoChangeMode: 2  Switch dark mode between 6 pm to 6 am
   # autoChangeMode: false
-  autoChangeMode: 2
+  autoChangeMode: false
 
 # Don't modify the following settings unless you know how they work (非必要請不要修改 )
 # Choose: readmode,translate,darkmode,hideAside,toc,chat,comment
