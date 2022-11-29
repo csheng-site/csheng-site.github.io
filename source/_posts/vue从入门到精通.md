@@ -1,8 +1,7 @@
 ---
 title: vue从入门到精通
 date: 2022-11-28 00:00:00
-updated: 2022-11-28 00:00:00
-categories: "vue"
+categories: vue
 cover: https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue.jpeg
 toc_expand: true
 ---
