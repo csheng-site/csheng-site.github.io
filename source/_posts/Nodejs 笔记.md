@@ -5,7 +5,6 @@ tags: 后端
 categories: 后端
 description: Node.js® 是一个开源、跨平台的 JavaScript 运行时环境。
 cover: https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/nodejs.jpeg
-swiper_index: 2
 toc_expand: false
 --- 
 
