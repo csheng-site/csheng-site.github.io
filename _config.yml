@@ -236,9 +236,6 @@ magnet:
   temple_html: '<div class="recent-post-item" style="width:100%;height: auto"><div id="catalog_magnet">${temple_html_item}</div></div>'
   plus_style: ""
 
-butterfly_article_double_row:
-  enable: true
-
 # hexo-filter-gitcalendar
 gitcalendar:
   enable: true # 开关

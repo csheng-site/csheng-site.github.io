@@ -1,15 +1,9 @@
-:root {
-	--trans-light: rgba(255, 255, 255, 0.88);
-	--trans-dark: rgba(25, 25, 25, 0.88);
-	--border-style: 1px solid rgb(169, 169, 169);
-	--backdrop-filter: blur(5px) saturate(150%);
-}
-
 /* 版心宽度 */
 .layout {
 	max-width: 1400px;
 }
 
+/* ⭐一图流 */
 /* 页脚与头图透明 */
 #footer {
 	background: transparent !important;
@@ -17,19 +11,12 @@
 #page-header {
 	background: transparent !important;
 }
-
 /* 白天模式遮罩透明 */
 #footer::before {
 	background: transparent !important;
 }
 #page-header::before {
 	background: transparent !important;
-}
-
-/* 翻页按钮居中 */
-#pagination {
-	width: 100%;
-	margin: auto;
 }
 
 /* 一级菜单居中 */
@@ -91,143 +78,20 @@
 		background-position: 0% 50%;
 	}
 }
-
 /* 个人信息Follow me按钮 */
 #aside-content > .card-widget.card-info > #card-info-btn {
 	background-color: #3eb8be;
 	border-radius: 8px;
 }
 
-/* 首页文章卡片 */
-#recent-posts > .recent-post-item {
-	background: var(--trans-light);
-	backdrop-filter: var(--backdrop-filter);
-	border-radius: 25px;
-	border: var(--border-style);
-}
-
 /* 首页侧栏卡片 */
 #aside-content .card-widget {
-	background: var(--trans-light);
-	backdrop-filter: var(--backdrop-filter);
 	border-radius: 18px;
-	border: var(--border-style);
 }
 
 /* 文章页、归档页、普通页面 */
 div#post,
 div#page,
 div#archive {
-	background: var(--trans-light);
-	backdrop-filter: var(--backdrop-filter);
-	border: var(--border-style);
 	border-radius: 20px;
-}
-
-/* 导航栏 */
-#page-header.nav-fixed #nav {
-	background: rgba(255, 255, 255, 0.75);
-	backdrop-filter: var(--backdrop-filter);
-}
-
-/* 阅读模式 */
-.read-mode #aside-content .card-widget {
-	background: rgba(158, 204, 171, 0.5) !important;
-}
-.read-mode div#post {
-	background: rgba(158, 204, 171, 0.5) !important;
-}
-
-/*哔哩哔哩视频适配*/
-.aspect-ratio {
-	position: relative;
-	width: 90%;
-	height: auto;
-	padding-bottom: 75%;
-	margin: 3% auto;
-	text-align: center;
-}
-.aspect-ratio iframe {
-	position: absolute;
-	width: 100%;
-	height: 86%;
-	left: 0;
-	top: 0;
-}
-
-body::-webkit-scrollbar {
-	width: 0;
-}
-
-.neko {
-	width: 64px;
-	height: 64px;
-	background-image: url('https://bu.dusays.com/2022/07/20/62d812db74be9.png');
-	position: absolute;
-	right: 32px;
-	background-repeat: no-repeat;
-	background-size: contain;
-	transform: translateX(50%);
-	cursor: pointer;
-	font-family: tzy;
-	font-weight: 600;
-	font-size: 16px;
-	color: #6f42c1;
-	display: none;
-}
-
-.neko::after {
-	display: none;
-	width: 100px;
-	height: 100px;
-	background-image: url('https://bu.dusays.com/2022/07/20/62d812d95e6f5.png');
-	background-size: contain;
-	z-index: 9999;
-	position: absolute;
-	right: 50%;
-	text-align: center;
-	line-height: 100px;
-	top: -115%;
-}
-
-.neko.showMsg::after {
-	content: attr(data-msg);
-	display: block;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.neko:hover::after {
-	content: attr(data-msg);
-	display: block;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.neko.fontColor::after {
-	color: #333;
-}
-
-/**
- * @description: 滚动条样式  跟猫二选一
- */
-@media screen and (max-width: 992px) {
-	::-webkit-scrollbar {
-		width: 8px !important;
-		height: 8px !important;
-	}
-
-	::-webkit-scrollbar-track {
-		border-radius: 2em;
-	}
-
-	::-webkit-scrollbar-thumb {
-		background-color: rgb(255 255 255 / 0.3);
-		background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
-		border-radius: 2em;
-	}
-
-	::-webkit-scrollbar-corner {
-		background-color: transparent;
-	}
 }
