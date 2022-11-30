@@ -353,7 +353,18 @@ v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做
 ## 列表渲染 (v-for)
 {% tabs 列表渲染 %}
 <!-- tab v-for -->
+```html
+<ul>
+   <li v-for="(item, index) in array" :key="index">{{ item.name }}</li>
+   <li v-for="(value, key) in obj" :key="value"><p>{{ key }}-{{ value }}</p></li>
+   <li v-for="item in 6" :key="item">{{ item }}</li>
+   <li v-for="item in 6" :key="item">{{ item + 4 }}</li>
+</ul>
+```
+<!-- endtab -->
 
+<!-- tab key的作用 -->
+为了高效的更新虚拟DOM
 <!-- endtab -->
 
 <!-- tab for in和for of的区别 -->
@@ -387,6 +398,10 @@ v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做
 </ul>
 <p v-else>No todos left!</p>
 ```
+<!-- endtab -->
+
+<!-- tab diff算法 -->
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E7%9A%84diff%E7%AE%97%E6%B3%95.png)
 <!-- endtab -->
 {% endtabs %}
 
@@ -566,8 +581,31 @@ v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做
 
 ## 组件基础
 
+## 使用bootstrap
+1. 安装bootstrap依赖：
+```bash
+npm i bootstrap
+```
+2. 在vue项目的main.js导入bootstrap样式
+```js
+import 'bootstrap/dist/css/bootstrap.css';
+```
+3. 运行项目
+```bash
+npm run serve
+```
+
+## 案例
+### 学生成绩管理
+
+
+
 # 深入了解组件
 ## 组件注册
+组件名大小写
+- 短横线分隔命名：例如 `<my-component-name>`
+- 首字母大写命名：例如 `<MyComponentName>`
+
 ## Prop
 ## 自定义事件
 ## 插槽
