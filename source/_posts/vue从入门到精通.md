@@ -595,10 +595,142 @@ import 'bootstrap/dist/css/bootstrap.css';
 npm run serve
 ```
 
-## 案例
-### 学生成绩管理
+## 学生成绩管理📝
+{% tabs 学生成绩管理 %}
+<!-- tab 前期准备 -->
+```bash
+vue create vue_study(此为项目名) 选择vue2版本
+npm run serve (启动项目，并删除多余的结构)
+```
+通过修改 vue.config.js 文件来覆盖脚手架下的 webpack 配置
+```diff
+const { defineConfig } = require('@vue/cli-service');
+module.exports = defineConfig({
+	transpileDependencies: true,
++       devServer: { port: 4080 }, // 配置本地开发服务器的端口号
++       lintOnSave: false, // 这里先暂时关闭代码检查
+});
+```
+<!-- endtab -->
+
+<!-- tab 渲染结构 -->
+{% span red, 'css样式引入在main.js，而js引入在需要用到的组件通过es6模块化导入' %}
+
+思路：
+```txt
+1. 数据结构的编写用的是 bootstrap ，用到 bootstrap
+2. 处理数据中的时间，用到 moment.js
+3. 要求成绩低于60分的，字体显示为红色
+```
+
+- bootstrap的使用
+```js
+1. 复制老师给的 bootstrap 的 HTML 代码到 App.vue
+2. 安装： npm i bootstrap
+3. 在 vue 项目的 main.js 导入 bootstrap 样式：
+   import 'bootstrap/dist/css/bootstrap.css';
+```
 
 
+
+- moment.js的使用
+```js
+1. 安装：npm i moment
+2. App.vue 导入 moment：
+   import moment from 'moment'
+3. 在 methods 声明格式化函数 format
+4. 在 html 结构中，把时间数据 item.time 传给 format 函数
+```
+
+实现代码：
+```html
+							<tr v-for="(item, index) in list" :key="index">
+								<th scope="row">{{ item.id }}</th>
+								<td>{{ item.subject }}</td>
+								<td :class="{ 'not-passed': item.score < 60 }">{{ item.score }}</td>
+								<td>{{ format(item.time) }}</td>
+								<td>
+									<button type="button" class="btn btn-link">删除</button>
+								</td>
+							</tr>
+```
+```js
+	data() {
+		return {
+			list: [
+				{ id: 100, subject: '语文', score: 99, time: new Date('2010-08-12') },
+				{ id: 101, subject: '数学', score: 34, time: new Date('2020-09-01') },
+				{ id: 102, subject: '英语', score: 25, time: new Date('2018-11-22') },
+				{ id: 103, subject: '体育', score: 100, time: new Date('2020-12-12') },
+			],
+		};
+	},
+	methods: {
+		format(time) {
+			return moment(time).format('YYYY-MM-DD HH:mm:ss');
+		},
+	},
+```
+<!-- endtab -->
+
+<!-- tab 单个删除 -->
+思路：
+1. 删除功能：	
+方法1：可以通过filter删除指定id的项
+方法2：直接通过遍历接收的索引，通过splice(指定索引,1)【建议方法，简洁代码少】
+```html
+// 方法1：<button @click="del(index)">删除</button>
+// 方法2：<button @click="del(item.id)">删除</button>
+```
+```js
+	methods: {
+		// 方法1：
+		del(index) {
+			this.list.splice(index, 1);
+		},
+		// 方法2：
+		del(id) {
+			this.list = this.list.filter((item) => item.id !== id);
+		},
+	},
+```
+1. 当数据全部清空，显示暂无数据，通过v-if来判断，(可选：逆向思维的非运算）
+谨记：先把tfoot里面的style="display: none"去掉
+```html
+<!-- 方法1： -->
+<tfoot v-if="!list.length">
+<!-- 方法2： -->
+<tfoot v-if="list.length === 0">
+```
+<!-- endtab -->
+
+<!-- tab 添加成绩 -->
+```html
+<form @submit.prevent="add">
+		<input type="text" placeholder="请输入科目" v-model.trim="subject" />
+		<input type="text" placeholder="请输入分数" v-model.number="score" />
+		<button type="submit">添加</button>
+</form>
+```
+```js
+	methods: {
+		add() {
+			this.list.push({
+				// 数组有数据，取最后一条id + 1；没数据给一个默认id
+				id: this.list.length > 0 ? this.list[this.list.length - 1].id + 1 : 100,
+				subject: this.subject,
+				score: this.score,
+				time: new Date(),
+			});
+
+      		// 记得清空输入框
+			this.subject = '';
+			this.score = '';
+		},
+	},
+```
+<!-- endtab -->
+{% endtabs %}
 
 # 深入了解组件
 ## 组件注册
