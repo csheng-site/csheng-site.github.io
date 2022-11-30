@@ -121,7 +121,7 @@ export default {
 <style lang="less" scoped></style>
 ```
 
-# Vue语法
+# Vue基础
 ## 模板语法 (插值/指令)
 {% tabs 模板语法 %}
 <!-- tab 插值 -->
@@ -455,9 +455,89 @@ v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做
 ## 表单输入绑定 (v-model)
 {% tabs 表单输入绑定 %}
 <!-- tab 基础用法 -->
+```js
+		<p>Message is: {{ message }}</p>
+
+		<!-- 文本 -->
+		<input type="text" v-model="message" placeholder="请输入文本" /> <br />
+		<textarea v-model="message" placeholder="请输入文本"></textarea> <br />
+
+		<!-- 复选框 -->
+		<input type="checkbox" id="checkbox" v-model="checked" /><label for="checkbox">{{ checked }}</label> <br />
+
+		<!-- 单选按钮 -->
+		<input type="radio" id="one" value="One" v-model="picked" /><label for="one">One</label><br />
+		<input type="radio" id="two" value="Two" v-model="picked" /><label for="two">Two</label><br />
+
+		<!-- 选择框 -->
+		<select v-model="selected1">
+			<option disabled value="">请选择</option>
+			<option>A</option>
+			<option>B</option>
+			<option>C</option>
+		</select>
+		<!-- 多选时 (绑定到一个数组)： -->
+		<select v-model="selected2" multiple style="width: 50px">
+			<option>A</option>
+			<option>B</option>
+			<option>C</option>
+		</select>
+		<!-- 用 v-for 渲染的动态选项： -->
+		<select v-model="selected3">
+			<option v-for="option in options" :value="option.value" :key="option.value">
+				{{ option.text }}
+			</option>
+		</select>
+```
+```js
+			message: '',
+			checked: '',
+			picked: '',
+			selected1: '',
+			selected2: [],
+
+			selected3: 'A',
+			options: [
+				{ text: 'One', value: 'A' },
+				{ text: 'Two', value: 'B' },
+				{ text: 'Three', value: 'C' },
+			],
+```
 <!-- endtab -->
 
 <!-- tab 值绑定-->
+对于单选按钮，复选框及选择框的选项，v-model 绑定的值通常是静态字符串 (对于复选框也可以是布尔值)：
+```html
+		<!-- 当选中时，`picked` 为字符串 "a" -->
+		<input type="radio" v-model="picked" value="a" />
+		<!-- `toggle` 为 true 或 false -->
+		<input type="checkbox" v-model="toggle" />
+		<!-- 当选中第一个选项时，`selected` 为字符串 "abc" -->
+		<select v-model="selected">
+			<option value="abc">ABC</option>
+		</select>
+```
+
+但是有时我们可能想把值绑定到 Vue 实例的一个动态 属性 上，这时可以用 v-bind 实现，并且这个 属性 的值可以不是字符串。
+```html
+		<!-- 复选框 -->
+		<input type="checkbox" v-model="toggle" true-value="yes" false-value="no" />
+		<!-- 当选中时 vm.toggle === 'yes'  -->
+		<!-- 当没有选中时 vm.toggle === 'no' -->
+
+		<!-- 单选按钮 -->
+		<input type="radio" v-model="pick" v-bind:value="a" />
+		<!-- 当选中时 vm.pick === vm.a -->
+
+		<!-- 选择框的选项 -->
+		<select v-model="selected">
+			<!-- 内联对象字面量 -->
+			<option v-bind:value="{ number: 123 }">123</option>
+		</select>
+		<!-- 当选中时  -->
+		<!-- typeof vm.selected // => 'object'  -->
+		<!-- vm.selected.number // => 123 -->
+```
 <!-- endtab -->
 
 <!-- tab 修饰符(lazy/number/trim) -->
@@ -486,6 +566,13 @@ v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做
 
 ## 组件基础
 
+# 深入了解组件
+## 组件注册
+## Prop
+## 自定义事件
+## 插槽
+## 动态组件 & 异步组件
+## 处理边界情况
 
 
 
