@@ -611,6 +611,12 @@ module.exports = defineConfig({
 +       lintOnSave: false, // 这里先暂时关闭代码检查
 });
 ```
+如果编辑器右下角出现 “1 known issue”，则需要在 jsconfig.json 添加 以下代码
+```js
+"vueCompilerOptions": {
+	"target": 2.7
+}
+```
 <!-- endtab -->
 
 <!-- tab 渲染结构 -->
