@@ -581,20 +581,6 @@ v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做
 
 ## 组件基础
 
-## 使用bootstrap
-1. 安装bootstrap依赖：
-```bash
-npm i bootstrap
-```
-2. 在vue项目的main.js导入bootstrap样式
-```js
-import 'bootstrap/dist/css/bootstrap.css';
-```
-3. 运行项目
-```bash
-npm run serve
-```
-
 ## 学生成绩管理📝
 {% tabs 学生成绩管理 %}
 <!-- tab 前期准备 -->
