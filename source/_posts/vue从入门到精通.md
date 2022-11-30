@@ -624,8 +624,6 @@ module.exports = defineConfig({
    import 'bootstrap/dist/css/bootstrap.css';
 ```
 
-
-
 - moment.js的使用
 ```js
 1. 安装：npm i moment
@@ -752,6 +750,15 @@ module.exports = defineConfig({
 ## 动态组件 & 异步组件
 ## 处理边界情况
 
+# 过渡 & 动画
+
+# 可复用性 & 组合
+
+# 工具
+
+# 规模化
+
+# 内在
 
 
 
