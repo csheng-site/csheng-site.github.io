@@ -737,6 +737,21 @@ module.exports = defineConfig({
 	},
 ```
 <!-- endtab -->
+
+<!-- tab 总分和平均分 -->
+{% span red, '对于任何复杂逻辑，都应当使用计算属性。' %}
+谨记：计算属性不用再在data里面声明变量
+```js
+	computed: {
+		total() {
+			return this.list.reduce((total, value) => total + value.score, 0).toFixed(1);
+		},
+		average() {
+			return (this.list.reduce((total, value) => total + value.score, 0) / this.list.length).toFixed(1);
+		},
+	},
+```
+<!-- endtab -->
 {% endtabs %}
 
 # 深入了解组件
