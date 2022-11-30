@@ -625,8 +625,9 @@ module.exports = defineConfig({
 思路：
 ```txt
 1. 数据结构的编写用的是 bootstrap ，用到 bootstrap
-2. 处理数据中的时间，用到 moment.js
-3. 要求成绩低于60分的，字体显示为红色
+2. 不及格写的样式用到 less, 安装：npm i less less.loader -D
+3. 处理数据中的时间，用到 moment.js
+4. 要求成绩低于60分的，字体显示为红色
 ```
 
 - bootstrap的使用
