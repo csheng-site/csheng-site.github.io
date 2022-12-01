@@ -253,8 +253,8 @@ computed: {
     }
 }
 ```
-相比之下，{% span red, '每当触发重新渲染时，调用方法将总会再次执行函数' %}，。
-<!-- endtab -->
+相比之下，{% span red, '每当触发重新渲染时，调用方法将总会再次执行函数' %}。
+<!-- endtab -->	
 
 <!-- tab watch和computed的区别 -->
 1. computed支持{% span red, '缓存' %}，只有依赖数据发生改变,才会重新进行计算;而watch不支持缓存，数据变,直接会触发相应的操作
@@ -728,10 +728,10 @@ module.exports = defineConfig({
 ```js
 	computed: {
 		total() {
-			return this.list.reduce((total, value) => total + value.score, 0).toFixed(1);
+			return this.list.reduce((total, value) => total + value.score, 0).toFixed(0);
 		},
 		average() {
-			return (this.list.reduce((total, value) => total + value.score, 0) / this.list.length).toFixed(1);
+			return this.total / this.list.length;
 		},
 	},
 ```
