@@ -4,6 +4,7 @@ date: 2022-11-28 00:00:00
 categories: vue
 cover: https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue.jpeg
 toc_expand: true
+sticky: 2
 ---
 
 # 介绍
@@ -725,16 +726,58 @@ module.exports = defineConfig({
 <!-- tab 总分和平均分 -->
 {% span red, '对于任何复杂逻辑，都应当使用计算属性。' %}
 谨记：计算属性不用再在data里面声明变量
+分数值的合法性，通过watch监听进行处理
 ```js
 	computed: {
 		total() {
 			return this.list.reduce((total, value) => total + value.score, 0).toFixed(0);
 		},
 		average() {
-			return this.total / this.list.length;
+			return this.list.length === 0 ? 0 : this.total / this.list.length.toFix(2);
+		},
+	},
+	watch: {
+		score(newVal, oldVal) {
+			if (newVal > 100) {
+				alert('最大100分');
+				this.score = null;
+			} else if (newVal < 0) {
+				alert('不允许负分');
+				this.score = null;
+			}
 		},
 	},
 ```
+<!-- endtab -->
+
+<!-- tab 本地存储-->
+- 本地存储：localStorage.setItem / getItem
+- 监听list数据的改变
+
+```js
+	created() {
+		const result = localStorage.getItem('list');
+		if (result) this.list = JSON.parse(result);
+	},
+	watch: {
+		list: {
+			deep: true,
+			handler(newVal) {
+				localStorage.setItem('list', JSON.stringify(newVal));
+			},
+		},
+	},
+```
+<!-- endtab -->
+{% endtabs %}
+
+## 全选反选案例📝
+{% tabs 全选反选案例 %}
+<!-- tab 效果 -->
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E5%85%A8%E9%80%89%E5%8F%8D%E9%80%89%E5%B0%8F%E6%A1%88%E4%BE%8B.png)
+<!-- endtab -->
+
+<!-- tab 实现代码 -->
 <!-- endtab -->
 {% endtabs %}
 
