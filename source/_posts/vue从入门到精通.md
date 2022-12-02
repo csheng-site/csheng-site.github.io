@@ -778,40 +778,95 @@ module.exports = defineConfig({
 <!-- endtab -->
 
 <!-- tab 实现代码 -->
+```html
+	<div id="app">
+		<p>全选：<input type="checkbox" v-model="isAll" /> <button @click="reverseClick">反选</button></p>
+		<ul>
+			<li v-for="item in list" :key="item.name"><input type="checkbox" v-model="item.checked" /> {{ item.name }}</li>
+		</ul>
+	</div>
+```
+```js
+	data() {
+		return {
+			list: [
+				{ name: '唐增', checked: false },
+				{ name: '孙悟空', checked: false },
+				{ name: '猪八戒', checked: true },
+				{ name: '沙师弟', checked: false },
+			],
+		};
+	},
+	methods: {
+		reverseClick() {
+			this.list.forEach((item) => (item.checked = !item.checked));
+		},
+	},
+	computed: {
+		isAll: {
+			get() {
+				return this.list.every((item) => item.checked);
+			},
+			set(value) {
+				this.list.map((item) => (item.checked = value));
+			},
+		},
+	},
+```
 <!-- endtab -->
 {% endtabs %}
 
 # 深入了解组件
 ## 组件注册
-组件名大小写
-- 短横线分隔命名：例如 `<my-component-name>`
-- 首字母大写命名：例如 `<MyComponentName>`
+{% tabs 组件注册 %}
+<!-- tab 组件注册 -->
+举例：生成 tasty-food 的组件
+```html
+<template>
+	<div id="tasty-food">
+		<h1>爱的魔力转圈圈</h1>
+	</div>
+</template>
 
-## Prop
-## 自定义事件
-## 插槽
-## 动态组件 & 异步组件
-## 处理边界情况
+<script>
+export default {
+	name: 'TastyFood',
+};
+</script>
+```
+在App.vue中使用上面的插件
+```html
+<template>
+	<div id="app">
+		<tasty-food></tasty-food>
+	</div>
+</template>
 
-# 过渡 & 动画
+<script>
+import TastyFood from './components/tasty-food';
 
-# 可复用性 & 组合
+export default {
+	name: 'App',
+	components: { TastyFood },
+};
+</script>
+```
+<!-- endtab -->
 
-# 工具
+<!-- tab scoped原理 -->
+1. 组件标签增加data-v-hash属性
+2. 样式会增加data-v-hash属性选择器
+<!-- endtab -->
+{% endtabs %}
 
-# 规模化
+## 组件间通讯
+{% tabs 组件注册 %}
+<!-- tab 父传子 -->
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E7%88%B6%E4%BC%A0%E5%AD%90.png)
+<!-- endtab -->
 
-# 内在
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- tab 子传父 -->
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E5%AD%90%E4%BC%A0%E7%88%B6.png)
+<!-- endtab -->
+{% endtabs %}
 
