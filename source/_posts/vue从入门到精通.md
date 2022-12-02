@@ -752,7 +752,7 @@ module.exports = defineConfig({
 
 <!-- tab 本地存储-->
 - 本地存储：localStorage.setItem / getItem
-- 监听list数据的改变
+- 监听list数据的改变123
 
 ```js
 	created() {
