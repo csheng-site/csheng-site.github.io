@@ -870,3 +870,214 @@ export default {
 <!-- endtab -->
 {% endtabs %}
 
+## 组件进阶
+### v-model
+<font size = 4 color = green>v-model给组件使用</font>【一个组件，只支持一个v-model】
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/v-model%E5%9C%A8%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8.png)
+
+<font size = 4 color = green>.sync修饰符可以处理多个数据</font>
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/snyc%E4%BF%AE%E9%A5%B0%E7%AC%A6%E5%9C%A8%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8.png)
+
+### $ref / $refs
+举例：回复自动获取输入框焦点
+{% tabs '$ref / $refs'  %}
+<!-- tab 获取dom元素 -->
+```html
+<template>
+	<div id="app">
+		<input ref="comment" type="text" /> <button @click="reply">回复</button>
+	</div>
+</template>
+
+<script>
+export default {
+	name: 'App',
+	data() {
+		return {};
+	},
+	methods: {
+		reply() {
+			this.$refs.comment.focus();
+		},
+	},
+};
+</script>
+```
+<!-- endtab -->
+
+<!-- tab 获取组件对象 -->
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/$refs%E8%8E%B7%E5%8F%96%E7%BB%84%E4%BB%B6%E5%AF%B9%E8%B1%A1.png)
+<!-- endtab -->
+{% endtabs %}
+
+### $nextTick
+{% tabs '$nextTick'  %}
+<!-- tab 具体使用 -->
+Vue更新DOM是异步的
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/$nextTick%E7%9A%84%E7%94%A8%E6%B3%95.png)
+<!-- endtab -->
+
+<!-- tab 搜索小案例 -->
+```html
+<template>
+	<div id="app">
+		<input type="text" placeholder="输入要搜索的关键字" ref="inp" v-if="isShown" />
+		<button @click="search" v-else>点击搜索</button>
+	</div>
+</template>
+
+<script>
+export default {
+	name: 'App',
+	data() {
+		return {
+			isShown: false,
+		};
+	},
+	methods: {
+		search() {
+			this.isShown = true;
+			this.$nextTick(() => {
+				this.$refs.inp.focus();
+			});
+		},
+	},
+};
+</script>
+```
+<!-- endtab -->
+{% endtabs %}
+
+### 动态组件
+```html
+<template>
+	<div id="app">
+		<button @click="current = 'little-cat'">看猫咪</button>
+		<button @click="current = 'little-dog'">看小狗</button>
+		<button @click="current = 'little-monkey'">看猴子</button>
+
+		<component :is="current"></component>
+	</div>
+</template>
+
+<script>
+import LittleCat from './components/little-cat.vue';
+import LittleDog from './components/little-dog.vue';
+import LittleMonkey from './components/little-monkey.vue';
+
+export default {
+	name: 'App',
+	components: { LittleCat, LittleDog, LittleMonkey },
+	data() {
+		return {
+			current: 'little-cat',
+		};
+	},
+};
+</script>
+```
+
+## 自定义指令
+> 自定义指令：自己定义指令, 封装dom操作，扩展额外功能
+
+{% tabs '自定义指令' %}
+<!-- tab 局部注册 -->
+```html
+<template>
+	<div id="app">
+		<h1 v-color="'red'">hello world</h1>
+
+		<p v-color="'blue'">你好，世界</p>
+
+		<p v-color="myColor">变色内容</p>
+		<button @click="myColor = myColor === 'red' ? 'pink' : 'red'">点击变色</button>
+	</div>
+</template>
+
+<script>
+export default {
+	name: 'App',
+	data() {
+		return {
+			myColor: 'pink',
+		};
+	},
+	// 自定义一个局部指令
+	directives: {
+		//【⭐写法1】
+		// 这里的color为指令名字
+		color: {
+			// inserted是指令所在的标签DOM创建完成并插入到父节后触发
+			// binding: { value } , value 就是指令的值
+			inserted(el, { value }) {
+				// el就是指令所在的标签的DOM
+				el.style.color = value;
+			},
+			// update：指令的值改变时触发，binding.value 指令的值修改触发
+			update(el, { value }) {
+				el.style.color = value;
+			},
+		},
+
+		//【⭐写法2】
+		color(el, { value }) {
+			el.style.color = value;
+		},
+	},
+};
+</script>
+```
+<!-- endtab -->
+
+<!-- tab 全局注册 -->
+在`main.js`添加以下代码
+```js
+Vue.directive('upper', {
+	inserted(el) {
+		el.textContent = el.textContent.toUpperCase();
+	},
+});
+```
+
+在对应的html结构增加指令：`v-upper` 即可
+```html
+<h1 v-upper>hello world</h1>
+```
+<!-- endtab -->
+{% endtabs %}
+
+## 插槽
+{% tabs 插槽 %}
+<!-- tab 基本使用 -->
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E6%8F%92%E6%A7%BD%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8.png)
+<!-- endtab -->
+
+<!-- tab 插槽默认值 -->
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E6%8F%92%E6%A7%BD%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC.png)
+<!-- endtab -->
+
+<!-- tab 具名插槽 -->
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E5%85%B7%E5%90%8D%E6%8F%92%E6%A7%BD%E7%9A%84%E4%BD%BF%E7%94%A8.png)
+<!-- endtab -->
+
+<!-- tab 作用域插槽 -->
+> 作用域插槽: 定义 slot 插槽的同时, 是可以传值的。给插槽上可以绑定数据，将来使用组件时可以用。
+
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%8F%92%E6%A7%BD%E7%9A%84%E4%BD%BF%E7%94%A8.png)
+<!-- endtab -->
+{% endtabs %}
+
+## 商品列表案例📝
+{% tabs 商品列表案例 %}
+<!-- tab 标题1 -->
+内容1
+<!-- endtab -->
+
+<!-- tab 标题2 -->
+内容2
+<!-- endtab -->
+
+<!-- tab 标题3 -->
+内容3
+<!-- endtab -->
+{% endtabs %}
