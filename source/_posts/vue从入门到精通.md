@@ -870,15 +870,16 @@ export default {
 <!-- endtab -->
 {% endtabs %}
 
-## 组件进阶
-### v-model
-<font size = 4 color = green>v-model给组件使用</font>【一个组件，只支持一个v-model】
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/v-model%E5%9C%A8%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8.png)
+## 自定义事件
+### 自定义组件的v-model
+一个组件上的 v-model 默认会利用名为 value 的 prop 和名为 input 的事件，但是像单选框、复选框等类型的输入控件可能会将 value 属性 用于不同的目的。model 选项可以用来避免这样的冲突：
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E7%9A%84v-model%E4%BD%BF%E7%94%A8.png)
 
-<font size = 4 color = green>.sync修饰符可以处理多个数据</font>
+### .sync修饰符
+可以处理多个数据
 ![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/snyc%E4%BF%AE%E9%A5%B0%E7%AC%A6%E5%9C%A8%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8.png)
 
-### $ref / $refs
+## $ref / $refs
 举例：回复自动获取输入框焦点
 {% tabs '$ref / $refs'  %}
 <!-- tab 获取dom元素 -->
@@ -910,7 +911,7 @@ export default {
 <!-- endtab -->
 {% endtabs %}
 
-### $nextTick
+## $nextTick
 {% tabs '$nextTick'  %}
 <!-- tab 具体使用 -->
 Vue更新DOM是异步的
@@ -948,7 +949,7 @@ export default {
 <!-- endtab -->
 {% endtabs %}
 
-### 动态组件
+## 动态组件
 ```html
 <template>
 	<div id="app">
