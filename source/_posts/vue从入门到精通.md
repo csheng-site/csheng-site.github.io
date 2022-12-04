@@ -1066,19 +1066,263 @@ Vue.directive('upper', {
 
 ![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%8F%92%E6%A7%BD%E7%9A%84%E4%BD%BF%E7%94%A8.png)
 <!-- endtab -->
+
+<!-- tab 书本列表案例 -->
+渲染的数据：
+```js
+bookList: [
+	{ id: 0, name: '红楼梦', author: '曹雪芹/高鹗' },
+	{ id: 1, name: '水浒传', author: '施耐庵' },
+	{ id: 2, name: '三国演义', author: '罗贯中' },
+	{ id: 3, name: '西游记', author: '吴承恩' },
+],
+heroes: [
+	{ id: 0, title: '齐天大圣', category: '猴子', weapon: '定海神针' },
+	{ id: 1, title: '汉寿亭侯', category: '统帅', weapon: '青龙偃月刀' },
+	{ id: 2, title: '黑猫警长', category: '猫', weapon: '沙漠之鹰' },
+],
+```
+App.vue
+```html
+		<hm-table :data="bookList">
+			<template #head>
+				<tr>
+					<th scope="col">id</th>
+					<th scope="col">书名</th>
+					<th scope="col">作者</th>
+				</tr>
+			</template>
+
+			<template #content="obj">
+				<td>{{ obj.row.id }}</td>
+				<td>{{ obj.row.name }}</td>
+				<td>{{ obj.row.author }}</td>
+			</template>
+		</hm-table>
+```
+子组件 hm-table.vue
+```html
+<template>
+	<table class="table table-bordered w-75 mx-auto mt-3">
+		<thead>
+			<slot name="head"></slot>
+		</thead>
+		<tbody>
+			<tr v-for="item in data" :key="item.id">
+				<slot name="content" :row="item"></slot>
+			</tr>
+		</tbody>
+	</table>
+</template>
+
+<script>
+export default {
+	name: 'HmTable',
+	props: {
+		data: Array,
+	},
+};
+</script>
+```
+<!-- endtab -->
 {% endtabs %}
 
-## 商品列表案例📝
-{% tabs 商品列表案例 %}
-<!-- tab 标题1 -->
-内容1
+# 生命周期
+{% hideBlock 生命周期图示, green %}
+这里有张图片：
+<img src="https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg" alt="生命周期图示" style="zoom:30%;" />
+{% endhideBlock %}
+
+{% note info no-icon flat %}
+Vue的生命周期：Vue组件实例从创建到销毁的全过程
+
+生命周期函数：是由 vue 框架提供的内置函数，会伴随着组件的生命周期，自动按次序执行。
+{% endnote %}
+
+{% note success no-icon flat %}
+八大生命周期钩子函数：
+1. beforeCreate：data数据初始化之前，组件还没有数据
+2. ⭐**created**：组件创建完毕后，发起Ajax 请求，从而初始化 data 数据
+3. beforeMount：DOM渲染之前，DOM还没渲染
+4. ⭐**mounted**：DOM渲染之后，可以操作DOM了
+5. beforeUpdate: 数据更新，DOM更新前
+6. updated: 数据更新，DOM更新后
+7. beforeDestroy: 组件销毁前
+8. destroyed: 组件销毁后
+{% endnote %}
+
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E5%B8%B8%E7%94%A8%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%98%B6%E6%AE%B5.png)
+
+# 路由基础
+{% tabs 路由基础 %}
+<!-- tab 单页面应用 -->
+{% note info no-icon flat %}
+单页应用程序: SPA - Single Page Application
+单页面应用(SPA): 所有功能在{% span red, '一个html页面' %}上实现     (多页面应用程序MPA)
+**优点：**
+- {% span red, '不整个刷新页面' %}，每次请求仅获取需要的部分，{% span red, '用户体验更好' %}
+- 数据传递容易, {% span red, '开发效率高' %}
+
+**缺点：**
+- 开发成本高(需要学习专门知识 - {% span red, '路由' %})
+- 首次加载会比较慢一点，不利于seo
+{% endnote %}
 <!-- endtab -->
 
-<!-- tab 标题2 -->
-内容2
+<!-- tab 路由使用 -->
+路由安装命令：npm i vue-router@3
+
+src/router/index.js
+```js
+// 导入路由
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+import HmHeader from '../views/hm-header.vue';
+import HmMain from '../views/hm-main.vue';
+import HmFooter from '../views/hm-footer.vue';
+
+// 注册路由
+Vue.use(VueRouter);
+
+// 路由配置页面
+const routes = [
+	{ path: '/header', component: HmHeader,  },
+	{ path: '/main', component: HmMain },
+	{ path: '/footer', component: HmFooter },
+];
+
+// 实例化路由
+const router = new VueRouter({
+	routes,
+});
+
+// 导出路由
+export default router;
+```
+
+src/main.js
+```js
+// 导入抽离的路由
+import router from './router';
+```
+
+App.vue
+```html
+<template>
+	<div id="App">
+		<router-link to="/header">header页面</router-link> |
+		<router-link to="/main">main页面</router-link> |
+		<router-link to="/footer">footer页面</router-link>
+		<router-view></router-view>
+	</div>
+</template>
+```
+
 <!-- endtab -->
 
-<!-- tab 标题3 -->
-内容3
+<!-- tab 两个类名 -->
+`router-link-active`: 激活的导航链接，`模糊匹配`（to="/my"：可以匹配 /my、/my/a、/my/b）
+`router-link-exact-active`: 激活的导航链接，`精确匹配`（to="/my"：仅可以匹配 /my）
+
+```css
+.router-link-active {
+	color: red;
+}
+```
+<!-- endtab -->
+
+<!-- tab 跳转传参 -->
+/path?参数名=值
+```html
+<router-link :to="{ path: '/shop', query: { sort: 1 } }">商城</router-link>
+
+<!-- 在跳转到的对应组件可以获取地址参数 -->
+<script>
+	created() {
+		console.log(this.$route.query.sort);
+	},
+</script>
+```
+/path/值 – 需要路由对象提前配置 path: “/path/:参数名”
+```html
+<!-- src/router/index.js给页面路径增加占位 -->
+const routes = [
+	{ path: '/cart/:abc', component: HmCart },
+];
+
+<!-- app.vue 跳转页面，拼接嵌套的参数 -->
+<router-link :to="'/cart/' + 666">购物车</router-link>
+
+<!-- 跳转到的路由接收参数 -->
+<script>
+	created() {
+		console.log(this.$route.params.abc);
+	},
+</script>
+```
+<!-- endtab -->
+
+<!-- tab 重定向 -->
+> 重定向：匹配path后, 强制跳转path路径
+
+- 网页打开url默认hash值是/路径
+- redirect是设置要重定向到哪个路由路径
+
+```js
+// 路由配置页面
+const routes = [
+	{ path: '/', redirect: '/index' },
+	{ path: '/index', component: HmIndex },
+];
+```
+<!-- endtab -->
+
+<!-- tab 404 -->
+404：当找不到路径匹配时，给个提示页面
+路由最后, path匹配*(任意路径) – 前面不匹配就命中最后这个
+```js
+// 在src/router/index.js添加代码
+import NotFound from '../views/not-found.vue';
+
+const routes = [
+	// 谨记：必须放在最后一个位置，*匹配任何路径
+	{ path: '*', component: NotFound },
+];
+```
+<!-- endtab -->
+
+
+<!-- tab 模式设置  -->
+问题：路由的路径看起来不自然, 有#，能否切成真正路径形式?
+答：vue路由-模式设置，修改路由在地址栏的模式
+- hash路由（例如: http://localhost:8080/#/home）
+- history路由（例如: http://localhost:8080/home，以后上线需要服务器端支持）
+
+```js
+// src/router/index.js
+const router = new VueRouter({
+	routes,
+	mode: 'history',
+});
+```
+<!-- endtab -->
+
+<!-- tab 编程式跳转  -->
+```html
+// ❗不能在目标页面进行点击跳转，不然会无效报错
+<button @click="jump">跳转到个人中心</button>
+
+<script>
+  jump() {
+  	// this.$router.push('/center');
+  	this.$router.push({ path: '/center', query: { sort: 1, all: 2 } });
+	this.$router.push({ name: 'HmCenter' })
+  },
+</script>
+```
 <!-- endtab -->
 {% endtabs %}
+
+# 面经H5📝
+![项目创建选项](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E9%9D%A2%E7%BB%8FH5%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E9%80%89%E9%A1%B9.png)
