@@ -1327,18 +1327,3 @@ const router = new VueRouter({
 <!-- endtab -->
 {% endtabs %}
 
-# 面经H5项目📝
-{% tabs 面经H5项目 %}
-<!-- tab 效果图 -->
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E9%9D%A2%E7%BB%8FH5%E6%95%88%E6%9E%9C%E5%9B%BE.png)
-<!-- endtab -->
-
-<!-- tab 新建项目 -->
-![项目创建选项](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E9%9D%A2%E7%BB%8FH5%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E9%80%89%E9%A1%B9.png)
-<!-- endtab -->
-
-<!-- tab 标题3 -->
-内容3
-<!-- endtab -->
-{% endtabs %}
-
