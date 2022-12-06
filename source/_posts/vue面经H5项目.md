@@ -60,7 +60,7 @@ import './utils/vant';
 5.重新运行 npm run serve
 {% endnote %}
 
-### 清理脚手架和创建空页面
+### 清理脚手架
 {% note success no-icon flat %}
 1.app.vue清理完成如下：
 ```html
