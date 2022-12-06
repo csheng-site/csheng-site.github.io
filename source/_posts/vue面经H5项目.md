@@ -2,7 +2,7 @@
 title: vue面经H5项目
 date: 2022-12-05 00:00:00
 categories: "vue"
-cover: https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E9%9D%A2%E7%BB%8FH5.png
+cover: https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E9%9D%A2%E7%BB%8FH5%E9%A1%B9%E7%9B%AE.png
 sticky: 3
 toc_expand: true
 ---
