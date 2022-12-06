@@ -8,22 +8,27 @@ toc_expand: true
 ---
 
 ## 前期准备
-{% tabs 面经H5项目 %}
-<!-- tab 效果图 -->
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E9%9D%A2%E7%BB%8FH5%E6%95%88%E6%9E%9C%E5%9B%BE.png)
-<!-- endtab -->
 
-<!-- tab 前期准备 -->
-技术栈：vue2、Router、axios、vantUI(UI框架)、less
+### 创建项目
+技术栈：vue2、Router、less、axios、vant
 
 ![项目创建选项](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E9%9D%A2%E7%BB%8FH5%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E9%80%89%E9%A1%B9.png)
 
-安装vant2：npm i vant@latest-v2 -S
-安装axios：npm i axios
+### 安装axios和vant
+{% note success no-icon flat %}
+<div class="btn-center">
+{% btn 'https://axios-http.com/zh/docs/intro','axios官网',far fa-hand-point-right,green larger %}
+{% btn 'https://vant-contrib.gitee.io/vant/v2/#/zh-CN/quickstart','vant官网',far fa-hand-point-right,green larger %}
+</div>
 
-导入vant（自动按需导入）：
-1.安装babel：npm i babel-plugin-import -D
-2.在babel.config.js配置babel：
+安装axios：{% label 'npm i axios' pink %}
+安装vant2：{% label 'npm i vant@latest-v2 -S' pink %}
+{% endnote %}
+
+### 导入vant（按需导入）
+{% note success no-icon flat %}
+1.安装babel插件：{% label 'npm i babel-plugin-import -D' pink %}
+2.在 babel.config.js 中配置
 ```js
 module.exports = {
 	plugins: [
@@ -53,21 +58,26 @@ Vue.use(Button);
 import './utils/vant';
 ```
 5.重新运行 npm run serve
+{% endnote %}
 
-清理工作
-1.清理app.vue
+### 清理脚手架和创建空页面
+{% note success no-icon flat %}
+1.app.vue清理完成如下：
 ```html
 <template>
 	<router-view />
 </template>
 ```
-2.清理路由
+2.路由清理完成如下：
 - 删除路由配置
 ```js
 const routes = []; // 上面的import导入也记得删掉
 ```
 - 删除页面组件：views里的所有文件
+{% endnote %}
 
+### 创建首页/注册/登录页面
+{% note primary no-icon flat %}
 创建3个页面：home-page、user-login、user-register，随便写点内容
 路由配置文件：
 ```js
@@ -77,8 +87,7 @@ const routes = [
 	{ path: '/login', name: 'UserLogin', component: () => import('../views/user-login.vue') },
 ];
 ```
-<!-- endtab -->
-{% endtabs %}
+{% endnote %}
 
 ## 调用接口
 ### 封装axios
@@ -118,8 +127,8 @@ axios.interceptors.response.use(
 export default axios;
 ```
 
-### 封装接口
-新建src/api/use.js
+### 封装用户相关的接口
+新建src/api/user.js
 ```js
 import request from '../utils/request';
 
