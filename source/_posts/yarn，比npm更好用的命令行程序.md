@@ -41,7 +41,7 @@ yarn --version (安装成功后，查看版本号)
 | npm uninstall <依赖包名>    | yarn remove <依赖包名>  | 移除某个依赖 |
 | npm update <依赖包名>    | yarn upgrade <依赖包名>  | 更新某个依赖 |
 | npm publish/login/logout    | yarn publish/login/logout  | 发布/登录/登出，一些列NPM Registry 操作 |
-| npm run/test    | yarn run/test  | 运行某个命令 |
+| npm run serve/start    | yarn serve/start  | 运行某个命令 |
 
 ### 相关问题比较
 npm存在一些历史遗留问题，请看下图：
@@ -76,7 +76,7 @@ yarn config set <key> <value> [-g|--global] // 设置配置项
 ```
 安装包：
 ```js
-yarn install // 安装package.json里所有包，并将包及它的所有依赖项保存进yarn.lock
+yarn // 等同 yarn install，安装package.json里所有包，并将包及它的所有依赖项保存进yarn.lock
 yarn install --flat // 安装一个包的单一版本
 yarn install --force // 强制重新下载所有包
 yarn install --production // 只安装dependencies里的包
@@ -112,11 +112,15 @@ yarn upgrade // 用于更新包到基于规范范围的最新版本
 ```
 运行脚本
 ```js
-yarn run // 用来执行在 package.json 中 scripts 属性下定义的脚本
+yarn serve/start... // 用来执行在 package.json 中 scripts 属性下定义的脚本
 ```
 显示某个包的信息
 ```js
 yarn info <packageName> // 可以用来查看某个模块的最新版本信息
+```
+查看 yarn 全局安装过的包
+```js
+yarn global list --depth=0
 ```
 缓存
 ```js
@@ -138,7 +142,7 @@ yrm test # 测试所有源的响应时间
 yrm use taobao # 选择源（建议淘宝）
 
 # rimraf是node的一个包，可快速删除node_modules
-npm install rimraf -g # 安装
+yarn global add rimraf # 安装，可 yarn global list --depth=0 检测是否安装成功
 rimraf node_modules # 使用
 ```
 {% endnote %}
