@@ -4,6 +4,7 @@ date: 2022-12-10 00:00:00
 categories: 工具
 description: yarn，一个比npm更好用的命令行程序
 cover: "https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/yarn%E5%B0%81%E9%9D%A2.png"
+sticky: 3
 toc_expand: true
 ---
 ## 简介和安装
