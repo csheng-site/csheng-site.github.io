@@ -7,6 +7,8 @@ cover: "https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/yarn%E5%B0%81%E9%9D%A2.
 toc_expand: true
 ---
 ## 简介和安装
+{% btn 'https://www.yarnpkg.cn/cli/install','yarn官方文档',far fa-hand-point-right,block blue center larger %}
+
 {% note info no-icon flat %}
 Yarn是facebook发布的一款取代npm的包管理工具。
 {% endnote %}
@@ -132,7 +134,8 @@ yarn cache clean // 清除缓存
 ```bash
 yarn global add yrm # 安装
 yrm ls # 查看可用源
-yrm use yarn # 选择源
+yrm test # 测试所有源的响应时间
+yrm use taobao # 选择源（建议淘宝）
 
 # rimraf是node的一个包，可快速删除node_modules
 npm install rimraf -g # 安装
