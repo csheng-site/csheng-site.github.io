@@ -39,9 +39,10 @@ yarn --version (安装成功后，查看版本号)
 | npm install <依赖包名> [-D]    | yarn add <依赖包名> [-D]  | 安装某个依赖 |
 | npm install <依赖包名> -g  | yarn global add <依赖包名>   | 全局安装某个依赖 |
 | npm uninstall <依赖包名>    | yarn remove <依赖包名>  | 移除某个依赖 |
+|   无   | yarn cache clean  | 删除共享缓存文件 |
 | npm update <依赖包名>    | yarn upgrade <依赖包名>  | 更新某个依赖 |
 | npm publish/login/logout    | yarn publish/login/logout  | 发布/登录/登出，一些列NPM Registry 操作 |
-| npm run serve/start    | yarn serve/start  | 运行某个命令 |
+| npm run serve/start/build    | yarn serve/start/build  | 运行某个命令 |
 
 ### 相关问题比较
 npm存在一些历史遗留问题，请看下图：
@@ -88,13 +89,14 @@ yarn install --pure-lockfile // 不生成yarn.lock
 yarn add [package] // 在当前的项目中添加一个依赖包，会自动更新到package.json和yarn.lock文件中
 yarn add [package]@[version] // 安装指定版本，这里指的是主要版本，如果需要精确到小版本，使用-E参数
 yarn add [package]@[tag] // 安装某个tag（比如beta,next或者latest）
-// 不指定依赖类型默认安装到dependencies里，你也可以指定依赖类型：
+yarn add [package1] [package2] // 可一次性添加多个包
 
+// 不指定依赖类型默认安装到dependencies里，你也可以指定依赖类型：
 yarn add --dev/-D // 加到 devDependencies
 yarn add --peer/-P // 加到 peerDependencies
 yarn add --optional/-O // 加到 optionalDependencies
-// 默认安装包的主要版本里的最新版本，下面两个命令可以指定版本：
 
+// 默认安装包的主要版本里的最新版本，下面两个命令可以指定版本：
 yarn add --exact/-E // 安装包的精确版本。例如yarn add foo@1.2.3会接受1.9.1版，但是yarn add foo@1.2.3 --exact只会接受1.2.3版
 yarn add --tilde/-T // 安装包的次要版本里的最新版。例如yarn add foo@1.2.3 --tilde会接受1.2.9，但不接受1.3.0
 ```
@@ -112,7 +114,7 @@ yarn upgrade // 用于更新包到基于规范范围的最新版本
 ```
 运行脚本
 ```js
-yarn serve/start... // 用来执行在 package.json 中 scripts 属性下定义的脚本
+yarn serve/start/build... // 用来执行在 package.json 中 scripts 属性下定义的脚本
 ```
 显示某个包的信息
 ```js
@@ -136,10 +138,14 @@ yarn cache clean // 清除缓存
 ## 使用yrm工具管理npm源
 {% note danger no-icon flat %}
 ```bash
+# 方法1：通过 yrm 来切换淘宝源
 yarn global add yrm # 安装
 yrm ls # 查看可用源
 yrm test # 测试所有源的响应时间
 yrm use taobao # 选择源（建议淘宝）
+--------------------------------------------------------
+# 方法2：安装完 yarn，直接切换到淘宝源
+yarn config set registry https://registry.npm.taobao.org
 
 # rimraf是node的一个包，可快速删除node_modules
 yarn global add rimraf # 安装，可 yarn global list --depth=0 检测是否安装成功
