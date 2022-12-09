@@ -28,6 +28,32 @@ yarn --version (安装成功后，查看版本号)
 
 ---
 
+## npm 与 yarn的比较
+### 命令比较
+| npm | yarn     | 说明 |
+| :-------- | :------- | :--- |
+| npm init  | yarn init | 初始化某个项目   |
+| npm install | yarn(或yarn install) | 默认的安装依赖操作   |
+| npm install <依赖包名> [-D]    | yarn add <依赖包名> [-D]  | 安装某个依赖 |
+| npm install <依赖包名> -g  | yarn global add <依赖包名>   | 全局安装某个依赖 |
+| npm uninstall <依赖包名>    | yarn remove <依赖包名>  | 移除某个依赖 |
+| npm update <依赖包名>    | yarn upgrade <依赖包名>  | 更新某个依赖 |
+| npm publish/login/logout    | yarn publish/login/logout  | 发布/登录/登出，一些列NPM Registry 操作 |
+| npm run/test    | yarn run/test  | 运行某个命令 |
+
+### 相关问题比较
+npm存在一些历史遗留问题，请看下图：
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/npm%E5%AD%98%E5%9C%A8%E4%B8%80%E4%BA%9B%E5%8E%86%E5%8F%B2%E9%81%97%E7%95%99%E9%97%AE%E9%A2%98.png)
+比如说你的项目模块依赖是图中描述的，@1.2.1代表这个模块的版本。在你安装A的时候需要安装依赖C和D，很多依赖不会指定版本号，默认会安装最新的版本，这样就会出现问题：比如今天安装模块的时候C和D是某一个版本，而当以后C、D更新的时候，再次安装模块就会安装C和D的最新版本，如果新的版本无法兼容你的项目，你的程序可能就会出BUG，甚至无法运行。这就是npm的弊端，而yarn为了解决这个问题推出了yarn.lock的机制，这是作者项目中的yarn.lock文件。
+
+yarn.lock文件格式:
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/yarn.lock%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F.png)
+
+大家会看到，这个文件已经把依赖模块的版本号全部锁定，当你执行yarn install的时候，yarn会读取这个文件获得依赖的版本号，然后依照这个版本号去安装对应的依赖模块，这样依赖就会被锁定，以后再也不用担心版本号的问题了。其他人或者其他环境下使用的时候，把这个yarn.lock拷贝到相应的环境项目下再安装即可。
+注意：这个文件不要手动修改它，当你使用一些操作如yarn add时，yarn会自动更新yarn.lock。
+
+---
+
 ## 常用命令
 {% note danger no-icon flat %}
 yarn安装:
@@ -113,29 +139,3 @@ npm install rimraf -g # 安装
 rimraf node_modules # 使用
 ```
 {% endnote %}
-
---- 
-
-## npm 与 yarn的比较
-### 命令比较
-| npm | yarn     | 说明 |
-| :-------- | :------- | :--- |
-| npm init  | yarn init | 初始化某个项目   |
-| npm install | yarn(或yarn install) | 默认的安装依赖操作   |
-| npm install <依赖包名> [-D]    | yarn add <依赖包名> [-D]  | 安装某个依赖 |
-| npm install <依赖包名> -g  | yarn global add <依赖包名>   | 全局安装某个依赖 |
-| npm uninstall <依赖包名>    | yarn remove <依赖包名>  | 移除某个依赖 |
-| npm update <依赖包名>    | yarn upgrade <依赖包名>  | 更新某个依赖 |
-| npm publish/login/logout    | yarn publish/login/logout  | 发布/登录/登出，一些列NPM Registry 操作 |
-| npm run/test    | yarn run/test  | 运行某个命令 |
-
-### 相关问题比较
-npm存在一些历史遗留问题，请看下图：
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/npm%E5%AD%98%E5%9C%A8%E4%B8%80%E4%BA%9B%E5%8E%86%E5%8F%B2%E9%81%97%E7%95%99%E9%97%AE%E9%A2%98.png)
-比如说你的项目模块依赖是图中描述的，@1.2.1代表这个模块的版本。在你安装A的时候需要安装依赖C和D，很多依赖不会指定版本号，默认会安装最新的版本，这样就会出现问题：比如今天安装模块的时候C和D是某一个版本，而当以后C、D更新的时候，再次安装模块就会安装C和D的最新版本，如果新的版本无法兼容你的项目，你的程序可能就会出BUG，甚至无法运行。这就是npm的弊端，而yarn为了解决这个问题推出了yarn.lock的机制，这是作者项目中的yarn.lock文件。
-
-yarn.lock文件格式:
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/yarn.lock%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F.png)
-
-大家会看到，这个文件已经把依赖模块的版本号全部锁定，当你执行yarn install的时候，yarn会读取这个文件获得依赖的版本号，然后依照这个版本号去安装对应的依赖模块，这样依赖就会被锁定，以后再也不用担心版本号的问题了。其他人或者其他环境下使用的时候，把这个yarn.lock拷贝到相应的环境项目下再安装即可。
-注意：这个文件不要手动修改它，当你使用一些操作如yarn add时，yarn会自动更新yarn.lock。
