@@ -1327,3 +1327,10 @@ const router = new VueRouter({
 <!-- endtab -->
 {% endtabs %}
 
+# 路由守卫
+
+# vuex
+
+{% btns rounded center grid5 %}
+{% cell vuex官方文档, https://v3.vuex.vuejs.org/zh/, fas fa-book-open %}
+{% endbtns %}
