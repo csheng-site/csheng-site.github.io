@@ -7,27 +7,14 @@ sticky: 5
 toc_expand: true
 ---
 
-## 项目介绍
-vant 项目的定位：
+# 项目准备
+## 简介
+{% btn 'https://www.apifox.cn/apidoc/project-934563/api-19465917','接口文档',far fa-hand-point-right,block orange center larger %}
 
-- 熟悉vant， 熟悉架子，熟悉模块
-
-element 项目的定位：
-
-- 熟悉element => **表单组件**，表单校验，**表格组件**
-- 巩固架子，巩固模块
-
-项目演示: 本地源代码《教学资料》
-
-接口文档: https://www.apifox.cn/apidoc/project-934563/api-19465917
-
-**接口根路径修改成**: http://interview-api-t.itheima.net/
-
-本项目的技术栈 本项目技术栈基于 [ES2015+](http://es6.ruanyifeng.com/)、[vue](https://cn.vuejs.org/index.html)、[vuex](https://vuex.vuejs.org/zh-cn/)、[vue-router](https://router.vuejs.org/zh-cn/) 、[vue-cli](https://github.com/vuejs/vue-cli) 、[axios](https://github.com/axios/axios) 和 [element-ui](https://github.com/ElemeFE/element)
+<font color=red size=4>{% span center, '接口根路径: http://interview-api-t.itheima.net/' %}  </font>
+<font color=blue size=4>{% span center, '(技术栈: vue2、vue-router、vuex、sass、其他(Element-UI、axios、Echarts、富文本编辑-vue-quill-editor))' %}  </font>
 
 
-
-## 页面展示
 {% tabs 页面展示 %}
 <!-- tab 登录页 -->
 ![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E7%99%BB%E5%BD%95%E9%A1%B5.png)
@@ -52,69 +39,19 @@ element 项目的定位：
 <!-- endtab -->
 {% endtabs %}
 
-
 ## 创建项目
 
-```jsx
-vue create hm-element-pc
+```bash
+vue create cms # 新建vue项目
+```
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/cms%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE.png)
+
+```bash
+yarn add element-ui axios echarts vue-quill-editor # 安装相关依赖
+yarn serve # 运行vue项目
 ```
 
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE01.png)
-
-
-
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE02.png)
-
-
-
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE03.png)
-
-
-
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE04.png)
-
-
-
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE05.png)
-
-
-
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE06.png)
-
-
-
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE07.png)
-
-
-
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE08.png)
-
-
-
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE09.png)
-
-
-
-## sass/scss 语法说明
-
-```txt
-less sass stylus 都是 css 预处理器，语法上稍有差异，作用一样
-都是让 css，增强能力，具备变量，函数.. 的能力
-
-sass的语法两种语法 .sass(旧) .scss(新)
-1 .sass 和 .stylus 语法很像 (了解)
-  要求省略 {} 和 分号， 缩进表示嵌套
-  
-2 .scss 和 .less   语法很像， 都支持嵌套, 变量...
-  scss 声明变量：$变量名
-  less 声明变量: @变量名
-```
-
-
-
-
-
-##调整项目目录
+## 调整项目目录
 
 默认生成的目录结构不满足我们的开发需求，所以这里需要做一些自定义改动。主要是两个工作：
 

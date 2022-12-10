@@ -317,7 +317,7 @@ add(a, b);
 
 ## nextTick的理解
 {% note success no-icon flat %}
-使用nextTick的原因：Vue是异步修改DOM的，并且不鼓励开发者直接接触DOM，但是有时候必须对数据更改后的DOM元素做相应的处理（例如：下面代码），但是获取到的DOM数据并不是更改后的数据，这时候就需要nextTick()来帮我们实现了
+使用nextTick的原因：<font color=red>Vue是异步修改DOM的</font>，并且不鼓励开发者直接接触DOM，但是有时候必须对数据更改后的DOM元素做相应的处理（例如：下面代码），但是获取到的DOM数据并不是更改后的数据，这时候就需要nextTick()来帮我们实现了
 ```html
 <button @click="change()">按钮</button><h1 ref="gss">{{msg}}</h1>
 
@@ -473,6 +473,3 @@ history模式：
 2. 使用$fourceUpdate强制刷新
 3. 克隆新对象，如this.persons ={...this.persons}， this.persons = Object.assign({}, this.persons)
 {% endnote %}
-
-# vue高阶
-## vuex面试高频
