@@ -4,18 +4,17 @@ date: 2022-12-10 00:00:00
 categories: "vue"
 cover: https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE%E5%B0%81%E9%9D%A2.png
 sticky: 5
-toc_expand: true
 ---
 
 # 项目准备
 ## 接口&展示图
-{% btn 'https://www.apifox.cn/apidoc/project-934563/api-19465917','接口文档',far fa-hand-point-right,block orange center larger %}
+{% btn 'https://www.apifox.cn/apidoc/project-934563/api-19465917','接口文档',far fa-hand-point-right,block center green larger %}
 
-<font color=red size=4>{% span center, '接口根路径: http://interview-api-t.itheima.net/' %}  </font>
-<font color=red size=4>{% span center, '账号：admin，密码：admin' %}  </font>
-<font color=blue size=4>{% span center, '(技术栈: vue2、vue-router、vuex、sass、其他(Element-UI、axios、Echarts、富文本编辑-vue-quill-editor))' %}  </font>
-
-
+{% note success no-icon flat %}
+接口根路径: &nbsp; `http://interview-api-t.itheima.net/`
+账号：admin，密码：admin
+技术栈: vue2、vue-router、vuex、sass、其他(Element-UI、axios、Echarts、富文本编辑-vue-quill-editor))
+{% endnote %}
 
 {% tabs 页面展示 %}
 <!-- tab 登录页 -->
@@ -716,438 +715,64 @@ router.beforeEach((to, from, next)=>{
 })
 ```
 
+# 首页
+## 登录检查
 
-
-
-
-## 首页 layout 模块
-
-### layout 布局 - 已准备
-
-`api/user.js `准备api接口
+在`router/index.js`配置导航守卫
 
 ```jsx
-export const getUser = () => {
-  return request.get('/auth/currentUser')
-}
+// 导入 Vuex 仓库
+import store from '../store';
+
+const router = new VueRouter({
+	routes,
+});
+
+// 配置导航守卫
+router.beforeEach((to, from, next) => {
+	if (to.path === '/login') {
+		// 登录不需要检查
+		next();
+	} else if (store.state.user.token) {
+		// 有 token，已经登陆，允许访问
+		next();
+	} else {
+		// 没有 token，也不是登录页，阻止访问，跳转登录
+		next('/login');
+	}
+});
 ```
 
-`layout/index.vue`准备结构
+## 请求头设置和首页接口封装
 
-```jsx
-<template>
-  <el-container class="layout-page">
-    <el-aside width="200px">
-      <div class="logo">黑马面经</div>
-      <el-menu
-        router
-        :default-active="$route.path"
-        background-color="#313a46"
-        text-color="#8391a2"
-        active-text-color="#FFF"
-      >
-        <el-menu-item index="/dashboard">
-          <i class="el-icon-pie-chart"></i>
-          <span>数据看板</span>
-        </el-menu-item>
-        <el-menu-item index="/article">
-          <i class="el-icon-notebook-1"></i>
-          <span>面经管理</span>
-        </el-menu-item>
-      </el-menu>
-    </el-aside>
-    <el-container>
-      <el-header>
-        <div class="user">
-          <el-avatar
-            :size="36"
-            :src="avatar"
-          ></el-avatar>
-          <el-link :underline="false">{{name}}</el-link>
-        </div>
-        <div class="logout">
-          <el-popconfirm title="您确认退出黑马面运营后台吗？" @confirm="handleConfirm">
-            <i slot="reference" title="logout" class="el-icon-switch-button"></i>
-          </el-popconfirm>
-        </div>
-      </el-header>
-      <el-main>
-        <router-view></router-view>
-      </el-main>
-    </el-container>
-  </el-container>
-</template>
+- 复制自带的`login.vue`代码和`element-ui.js`代码
 
-<script>
-import { getUser } from '@/api/user'
-export default {
-  name: 'layout-page',
-  data () {
-    return {
-      avatar: '',
-      name: ''
-    }
-  },
-  created () {
-    this.initData()
-  },
-  methods: {
-    async initData () {
-      const { data } = await getUser()
-      this.avatar = data.avatar
-      this.name = data.name
-    },
-    handleConfirm () {
-      this.$router.push('/login')
-    }
-  }
-}
-</script>
-
-<style lang="scss" scoped>
-.layout-page {
-  height: 100vh;
-  .el-aside {
-    background: #313a46;
-    .logo {
-      color: #fff;
-      font-size: 20px;
-      height: 60px;
-      line-height: 60px;
-      text-align: center;
-    }
-    .el-menu {
-      border-right: none;
-      margin-top: 20px;
-      &-item {
-        background-color: transparent !important;
-        > span, i {
-          padding-left: 5px;
-        }
-      }
-    }
-  }
-  .el-header {
-    box-shadow: 0px 0px 35px 0px rgba(154, 161, 171, 0.15);
-    background: #fff;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    z-index: 999;
-    .user {
-      display: flex;
-      align-items: center;
-      background: #fafbfd;
-      height: 60px;
-      border: 1px solid #f1f3fa;
-      padding: 0 15px;
-      .el-avatar {
-        margin-right: 15px;
-      }
-    }
-    .logout {
-      font-size: 20px;
-      color: #999;
-      cursor: pointer;
-      padding: 0 15px;
-    }
-  }
-  .el-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #aaa;
-    border-top: 1px solid rgba(152, 166, 173, 0.2);
-    font-size: 14px;
-  }
-}
-</style>
-```
-
-遇到 401 错误
-
-![image-20220617140402138](images/image-20220617140402138.png)
-
-
-
-
-
-### 请求拦截器携带token
-
-`utils/request.js`
+- 在`src/utils/request.js`设置请求头
 
 ```jsx
 // 添加请求拦截器
-request.interceptors.request.use(function (config) {
-  // 在发送请求之前做些什么
-  const { token } = store.state.user
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
-  }
-  return config
-}, function (error) {
-  // 对请求错误做些什么
-  return Promise.reject(error)
-})
+instance.interceptors.request.use(
+	function (config) {
+		// 在发送请求之前做些什么
+		const { token } = store.state.user;
+		if (token) config.headers.Authorization = `Bearer ${token}`;
+
+		return config;
+	},
+	function (error) {
+		// 对请求错误做些什么
+		return Promise.reject(error);
+	}
+);
 ```
 
-
-
-### 退出功能
-
-退出操作
+- 在`src/api/user.js`封装获取首页数据的接口
 
 ```jsx
-handleConfirm () {
-  // this.$router.push('/login')
-  this.$store.commit('user/logout')
-  this.$router.push('/login')
+export function getUser() {
+	return request.get('/auth/currentUser');
 }
 ```
-
-提供mutation
-
-```jsx
-import { delToken, getToken, setToken } from '@/utils/storage'
-
-export default {
-  namespaced: true,
-  state () {
-    return {
-      token: getToken()
-    }
-  },
-  mutations: {
-    setToken (state, payload) {
-      state.token = payload
-      setToken(state.token)
-    },
-    logout (state) {
-      state.token = null
-      delToken()
-    }
-  }
-}
-```
-
-
-
-
-
-### 处理token过期
-
-响应拦截器，处理token过期
-
-```jsx
-import router from '../router'
-
-// 添加响应拦截器
-request.interceptors.response.use(function (response) {
-  // 对响应数据做点什么
-  return response.data
-}, function (error) {
-  // 对响应错误做点什么
-  if (error.response.status === 401) {
-    store.commit('user/logout')
-    router.push('/login')
-  }
-  return Promise.reject(error)
-})
-```
-
-
-
-
-
-## 数据看板 (了解)
-
-### 静态结构
-
-`dashboard.vue`
-
-```jsx
-<template>
-  <div class="dashboard-page">
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>面经后台</el-breadcrumb-item>
-      <el-breadcrumb-item>数据看板</el-breadcrumb-item>
-    </el-breadcrumb>
-    <el-row :gutter="20">
-      <el-col :span="6">
-        <el-card style="height: 140px" shadow="never">
-          <i class="el-icon-user"></i>
-          <h5 class="tit">活跃用户</h5>
-          <h2 class="num">802</h2>
-          <p class="tag"><i>↑ 5.23%</i> 最近一个月</p>
-        </el-card>
-        <el-card style="height: 140px" shadow="never">
-          <i class="el-icon-tickets"></i>
-          <h5 class="tit">平均访问量</h5>
-          <h2 class="num">1298</h2>
-          <p class="tag"><i class="red">↓ 8.56%</i> 截止最近一周</p>
-        </el-card>
-        <el-card class="row" style="height: 180px" shadow="never">
-          <h4>Enhance your Campaign for better outreach →</h4>
-          <img src="@/assets/img.svg" alt="" />
-        </el-card>
-      </el-col>
-      <el-col :span="18">
-        <el-card style="height: 504px" shadow="never">
-          <div class="chart-box" style="height: 500px"></div>
-        </el-card>
-      </el-col>
-      <el-col :span="8">
-        <el-card style="height: 420px" shadow="never">
-          <h4>性别分布情况</h4>
-          <img style="margin-top: 60px" src="@/assets/chart-03.png" alt="" />
-        </el-card>
-      </el-col>
-      <el-col :span="8">
-        <el-card style="height: 420px" shadow="never">
-          <h4>浏览访问情况</h4>
-          <img src="@/assets/chart-01.svg" alt="" />
-        </el-card>
-      </el-col>
-      <el-col :span="8">
-        <el-card style="height: 420px" shadow="never">
-          <h4>设备系统访问情况</h4>
-          <img style="margin-top: 20px" src="@/assets/chart-02.svg" alt="" />
-        </el-card>
-      </el-col>
-    </el-row>
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'dashboard-page',
-  data () {
-    return {
-      loading: true
-    }
-  },
-  created () {},
-  methods: {}
-}
-</script>
-
-<style lang="scss" scoped>
-.dashboard-page {
-  .el-breadcrumb {
-    margin-top: 10px;
-    margin-bottom: 25px;
-  }
-  .el-card {
-    margin-bottom: 20px;
-    position: relative;
-    &.row {
-      h4 {
-        width: 40%;
-        float: left;
-        font-size: 18px;
-        margin-left: 5%;
-      }
-      img {
-        width: 40%;
-        float: left;
-        margin-left: 10%;
-        margin-top: 30px;
-      }
-    }
-    [class^="el-icon"] {
-      font-size: 30px;
-      color: #ccc;
-      position: absolute;
-      right: 25px;
-      top: 30px;
-      font-weight: bold;
-    }
-    .tit {
-      color: #6c757d;
-      font-size: 14px;
-      margin: 6px 0;
-    }
-    .num {
-      color: #6c757d;
-      font-size: 30px;
-      margin: 6px 0;
-    }
-    .tag {
-      color: #999;
-      margin: 0;
-      font-size: 14px;
-      > i {
-        font-style: normal;
-        margin-right: 10px;
-        color: rgb(10, 207, 151);
-        &.red {
-          color: #fa5c7c;
-        }
-      }
-    }
-    img {
-      width: 100%;
-      height: 100%;
-    }
-    h4 {
-      margin: 0;
-      padding-bottom: 20px;
-      color: #6c757d;
-    }
-  }
-}
-</style>
-```
-
-
-
-### vue中echarts的使用
-
-装包
-
-```jsx
-yarn add echarts
-```
-
-导入
-
-```jsx
-import * as echarts from 'echarts'
-```
-
-添加ref
-
-```html
-<div ref="box" class="chart-box" style="height: 500px"></div>
-```
-
-mounted初始化
-
-```jsx
-mounted () {
-  const myChart = echarts.init(this.$refs.box)
-  // 绘制图表
-  myChart.setOption({
-    title: {
-      text: 'ECharts 入门示例'
-    },
-    tooltip: {},
-    xAxis: {
-      data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-    },
-    yAxis: {},
-    series: [
-      {
-        name: '销量',
-        type: 'bar',
-        data: [5, 20, 36, 10, 10, 20]
-      }
-    ]
-  })
-},
-```
-
-
 
 
 
