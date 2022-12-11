@@ -8,11 +8,13 @@ toc_expand: true
 ---
 
 # 项目准备
-## 简介
+## 接口&展示图
 {% btn 'https://www.apifox.cn/apidoc/project-934563/api-19465917','接口文档',far fa-hand-point-right,block orange center larger %}
 
 <font color=red size=4>{% span center, '接口根路径: http://interview-api-t.itheima.net/' %}  </font>
+<font color=red size=4>{% span center, '账号：admin，密码：admin' %}  </font>
 <font color=blue size=4>{% span center, '(技术栈: vue2、vue-router、vuex、sass、其他(Element-UI、axios、Echarts、富文本编辑-vue-quill-editor))' %}  </font>
+
 
 
 {% tabs 页面展示 %}
@@ -51,107 +53,12 @@ yarn add element-ui axios echarts vue-quill-editor # 安装相关依赖
 yarn serve # 运行vue项目
 ```
 
-## 调整项目目录
 
-默认生成的目录结构不满足我们的开发需求，所以这里需要做一些自定义改动。主要是两个工作：
+## 按需导入element-ui
 
-- 删除初始化的默认文件
-- 修改剩余代码内容
-- 新增调整我们需要的目录结构
-
-1. 删除文件
-
-- components/HelloWorld.vue
-- views/HomeView.vue
-- views/AboutView.vue
-- assets/logo.png
-
-2. 修改内容
-
-`src/router/index.js`
-
-```jsx
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-
-Vue.use(VueRouter)
-
-const router = new VueRouter({
-  routes: []
-})
-
-export default router
-```
-
-`src/App.vue`
-
-```jsx
-<template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
-</template>
-
-<style lang="scss">
-
-</style>
-```
-
-store/index.js  和 main.js 不用动
-
-3. 新增需要目录
-
-在 src 目录下中补充创建以下目录：
-
-- /api ： 存储请求函数模块
-- /styles: 样式文件模块
-- /utils: 工具函数模块
-
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95.png)
-
-1. 将项目需要的图片资源放置assets文件夹中
-
-
-
-## 引入 element-ui 组件库
-
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E5%BC%95%E5%85%A5%20element-ui%20%E7%BB%84%E4%BB%B6%E5%BA%93.png)
-
-官方文档: https://element.eleme.io/#/zh-CN
-
-### 全部引入
-
-全部引入,  会导入所有的组件， 但是体积会变大
-
-- 安装
-
-```jsx
-yarn add element-ui
-```
-
-- 在`main.js`中
-
-```jsx
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
-```
-
-- 演示
-
-```jsx
-<el-button type="primary">主要按钮</el-button>
-```
-
-### 按需导入 (推荐)  
+{% btn 'https://element.eleme.cn/#/zh-CN/component/quickstart','element-ui官方文档',far fa-hand-point-right,block orange center larger %}
 
 减轻将来打包后的包的体积
-
-+ 安装
-
-```jsx
-yarn add element-ui
-```
 
 - 安装`babel-plugin-component`
 
@@ -179,132 +86,78 @@ module.exports = {
 }
 ```
 
-- 使用插件`main.js`中
-
-```jsx
-import { Button } from 'element-ui'
-Vue.use(Button)
-```
-
-### 抽离element.js模块
-
-- 由于组件的导入都书写到了`main.js`中,导致`main.js` 代码冗余
-
-  将element-ui组件的导入和注册单独抽离到utils文件夹中
-
-- 新建element.js 
-
-- **项目中 **  完整按需导入如下：
+- 新建`src/utils/element-ui.js`，完整按需导入如下：
 
 ```jsx
 import Vue from 'vue';
-import {
-  Popconfirm,
-  Avatar,
-  Breadcrumb,
-  BreadcrumbItem,
-  Pagination,
-  Dialog,
-  Menu,
-  Input,
-  Option,
-  Button,
-  Table,
-  TableColumn,
-  Form,
-  FormItem,
-  Icon,
-  Row,
-  Col,
-  Card,
-  Container,
-  Header,
-  Aside,
-  Main,
-  Footer,
-  Link,
-  Image,
-  Loading,
-  MessageBox,
-  Message,
-  Drawer,
-  MenuItem
-} from 'element-ui';
+import { Button } from 'element-ui';
 
-Vue.use(Breadcrumb);
-Vue.use(BreadcrumbItem);
-Vue.use(Drawer);
-Vue.use(Popconfirm);
-Vue.use(Avatar);
-Vue.use(Pagination);
-Vue.use(Dialog);
-Vue.use(Menu);
-Vue.use(MenuItem);
-Vue.use(Input);
-Vue.use(Option);
 Vue.use(Button);
-Vue.use(Table);
-Vue.use(TableColumn);
-Vue.use(Form);
-Vue.use(FormItem);
-Vue.use(Icon);
-Vue.use(Row);
-Vue.use(Col);
-Vue.use(Card);
-Vue.use(Container);
-Vue.use(Header);
-Vue.use(Aside);
-Vue.use(Main);
-Vue.use(Footer);
-Vue.use(Link);
-Vue.use(Image);
-
-Vue.use(Loading.directive);
-
-Vue.prototype.$loading = Loading.service;
-Vue.prototype.$msgbox = MessageBox;
-Vue.prototype.$alert = MessageBox.alert;
-Vue.prototype.$confirm = MessageBox.confirm;
-Vue.prototype.$prompt = MessageBox.prompt;
-Vue.prototype.$notify = Notification;
-Vue.prototype.$message = Message;
 ```
 
 - 直接导入main.js中
 
 ```jsx
-// 直接导入vant-ui.js
-import '@/utils/element.js'
+import '@/utils/element-ui.js'
 ```
 
-
-
-### 导入公共样式
-
-新建 styles/index.scss
+## 清理脚手架
+- 清理`App.vue`
 
 ```jsx
+<template>
+	<router-view />
+</template>
+```
+
+- 删除`views`下的所有文件，并新建`index.vue`和`login.vue`
+
+- 在`src/router/index.js`注册路由
+
+```jsx
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter);
+
+const routes = [
+	{ path: '/', component: () => import('../views/index.vue') },
+	{ path: '/login', component: () => import('../views/login.vue') },
+];
+
+const router = new VueRouter({
+	routes,
+});
+
+export default router;
+```
+
+## 导入公共样式
+- 新建`src/styles/index.scss`
+
+```scss
 // 修改主题色
-$--color-primary: rgba(114,124,245,1);
+$--color-primary: rgba(114, 124, 245, 1);
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
-@import "~element-ui/packages/theme-chalk/src/index";
+@import '~element-ui/packages/theme-chalk/src/index';
 
 body {
-  margin: 0;
-  padding: 0;
-  background: #fafbfe;
+	margin: 0;
+	padding: 0;
+	background: #fafbfe;
 }
 ```
 
-main.js 引入
+- 在`main.js`导入
 
-```js
-import '@/styles/index.scss'
+```scss
+import './styles/index.scss';
 ```
 
+- 把用到的图片，全部存放在 `assets`
 
 
-
+# 模块封装
 
 ## request模块 - axios封装
 
@@ -314,13 +167,7 @@ import '@/styles/index.scss'
 
 一般项目开发中, 都会对 axios 进行基本的二次封装, 单独封装到一个模块中, 便于使用
 
-1. 安装 axios
-
-```
-npm i axios
-```
-
-2. 新建 `utils/request.js` 封装 axios 模块
+- 新建 `utils/request.js` 封装 axios 模块
 
    利用 axios.create 创建一个自定义的 axios 来使用
 
@@ -546,143 +393,80 @@ export default {
 
 
 
-## 登录模块
+# 登录模块
 
-### element-ui 基本表单
-
-说明：我们先学习 element-ui 表单组件的基本结构使用
-
-需求：实现如图效果
-
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/element-ui%20%E5%9F%BA%E6%9C%AC%E8%A1%A8%E5%8D%95.png)
-
-一般情况，这种第三方的组件，为了样式控制方便，会给组件的根元素，起一个和组件名同名的类名
-
-控制组件的样式：
-
-1. 直接通过组件名 同名的 类， 进行控制样式
-
-2. 自己通过添加 class 类名，进行控制样式
-
-
-
-默认，写在scoped中的样式，只会影响到当前组件模板中的元素内容
-
-深度作用选择器：向下影响到子元素的样式
-
- ::v-deep (scss)
-
-/deep/  (less)
+## 基本表单
 
 ```jsx
 <template>
-  <div class="login-page">
-    <el-card class="el-card">
-      <template #header>黑马面经运营后台</template>
-      <el-form>
-        <el-form-item label="用户名：">
-          <el-input placeholder="请输入用户名" />
-        </el-form-item>
-        <el-form-item label="密码：">
-          <el-input placeholder="请输入密码：" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary">登录</el-button>
-          <el-button>重置</el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
-  </div>
+	<div id="login">
+		<el-card class="box-card">
+			<div slot="header" class="clearfix">
+				<span>黑马面经运营后台</span>
+			</div>
+
+			<!-- 登录表单 -->
+			<el-form label-position="top" label-width="80px" :model="form">
+				<el-form-item label="用户名">
+					<el-input v-model="form.username"></el-input>
+				</el-form-item>
+				<el-form-item label="密码">
+					<el-input type="password" v-model="form.password"></el-input>
+				</el-form-item>
+				<el-form-item class="login-operation">
+					<el-button type="primary" @click="onSubmit">登录</el-button>
+					<el-button>重置</el-button>
+				</el-form-item>
+			</el-form>
+		</el-card>
+	</div>
 </template>
 
 <script>
 export default {
-  name: 'login-page'
-}
+	name: 'Login',
+	data() {
+		return {
+			form: { username: '', password: '' },
+		};
+	},
+	methods: {
+		onSubmit() {
+			console.log('提交');
+		},
+	},
+};
 </script>
 
 <style lang="scss" scoped>
-.el-card {
-  width: 420px;
-  margin: 0 auto;
-  // 深度作用选择器   ::v-deep   /deep/
-  ::v-deep .el-card__header {
-    background: rgba(114,124,245,1);
-    text-align: center;
-    color: white;
-  }
+#login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background: url(../assets/login-bg.svg) no-repeat center / 150%;
+	.box-card {
+		width: 30%;
+		::v-deep .el-card__header {
+			text-align: center;
+			color: #fff;
+			background-color: #727cf5;
+		}
+		.login-operation {
+			text-align: center;
+		}
+	}
+	.el-form {
+		padding: 0 20px;
+	}
 }
 </style>
 ```
 
-样式美化：
-
-```jsx
-<template>
-  <div class="login-page">
-    <el-card>
-      <template #header>黑马面经运营后台</template>
-      <el-form autocomplete="off">
-        <el-form-item label="用户名">
-          <el-input placeholder="输入用户名"></el-input>
-        </el-form-item>
-
-        <el-form-item label="密码">
-          <el-input type="password" placeholder="输入用户密码"></el-input>
-        </el-form-item>
-
-        <el-form class="tc">
-          <el-button type="primary">登 录</el-button>
-          <el-button >重 置</el-button>
-        </el-form>
-      </el-form>
-    </el-card>
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'login-page',
-  data () {
-    return {
-
-    }
-  },
-  methods: {
-
-  }
-}
-</script>
-
-<style lang="scss" scoped>
-.login-page {
-  min-height: 100vh;
-  background: url(@/assets/login-bg.svg) no-repeat center / cover;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  .el-card {
-    width: 420px;
-    ::v-deep .el-card__header{
-      height: 80px;
-      background: rgba(114,124,245,1);
-      text-align: center;
-      line-height: 40px;
-      color: #fff;
-      font-size: 18px;
-    }
-  }
-  .el-form {
-    padding: 0 20px;
-  }
-  .tc {
-    text-align: center;
-  }
-}
-</style>
-```
-
-
+## 表单校验
+el-form: model 属性，rules 规则
+el-form-item: 绑定 prop 属性
+el-input: 绑定 v-model
 
 ### element-ui 基本校验
 
