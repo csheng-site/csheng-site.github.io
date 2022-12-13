@@ -5,9 +5,10 @@ categories: "面试"
 description: 摘录一些面试中遇到的vue相关高频面试题（持续更新中）
 cover: https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E9%9D%A2%E8%AF%95%E9%A2%98.avif
 toc_number: false
+toc_expand: false
 ---
 
-# vue2基础⚙️
+# vue2框架⚙️
 ## 对MVVM的理解
 {% note success no-icon flat %}
 Model-View-ViewModel 的简写，即模型-视图-视图模型
@@ -472,4 +473,29 @@ history模式：
 1. 使用Vue.set( target , key , value)
 2. 使用$fourceUpdate强制刷新
 3. 克隆新对象，如this.persons ={...this.persons}， this.persons = Object.assign({}, this.persons)
+{% endnote %}
+
+## token失效处理
+{% note success no-icon flat %}
+➤ 服务器端保存token状态，用户每次操作都会自动推迟token的过期时间，session就是采用这种策略保持token的有效期，但是当前后端分离，单页面的时候，每秒钟的请求发起多次，每次都去刷新一下过期时间会非常消耗性能的；
+➤ 使用refresh token，避免频繁的刷新token，此时服务端只要在token过期的时候反馈给前端，前端使用refresh token申请一个全新的token继续使用即可
+{% endnote %}
+
+
+# vue3框架⚙️
+## vue3和vue2区别
+{% note success no-icon flat %}
+1. vscode插件和调试工具方面
+  - 代码高亮，语法提示方面：`vue2`项目主要用`Vetur`插件，`vue3`中主要用`Volar`
+  - 语法片段方面：在`vue2`中我们一直使用`Vue 2 Snippets`，在`vue3`我们推荐使用`Vue 3 Snippets`，因为它支持`vue3`的同时完全向前兼容`vue2`
+  - 在浏览器调试工具方面：`vue2`版本的`chrome devtools`不再支持`vue3`，`vue3`我们需要单独下载`Vue.js devtools beta`
+1. 兼容性方面：
+  - `vue2` 不支持 IE8 及以下版本，因为 `Vue2` 使用了 IE8 无法模拟的 ECMAScript 5 特性，例如：Object.defineProperty()
+  - `vue3` 不支持 IE11 及以下版本。
+1. 语法层面
+  - 在`vue2`中，我们只要定义在data()方法中的数据就是响应式数据，在`vue3`中我们可以使用ref和reactive定义的响应式数据
+  - 组合式api：为了让相关代码更紧凑`vue3`提出了组合式api，组合式api能将同一个逻辑关注点相关代码收集在一起。 组合式api的入口就是setup方法。
+  - 在 `vue2` 中template不支持多根节点组件，`vue3`支持了多根节点的组件
+1. 底层实现方面
+  - `vue2`的响应式使用的是Object.defineProperty()实现的，`Vue3`使用的Proxy实现的
 {% endnote %}
