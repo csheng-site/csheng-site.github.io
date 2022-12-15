@@ -1501,7 +1501,7 @@ methods: {
 
 ![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E6%93%8D%E4%BD%9C%E6%8C%89%E9%92%AE%E9%83%A8%E5%88%86.png)
 
-```jsx
+```js
 <el-table :data="list" style="width: 100%">
   <el-table-column prop="stem" label="标题" width="400">
   </el-table-column>
@@ -1513,12 +1513,8 @@ methods: {
   <el-table-column label="操作" width="120px">
     <template #default="{ row }">
       <div class="actions">
-        <i
-          class="el-icon-view"
-        ></i>
-        <i
-          class="el-icon-edit-outline"
-        ></i>
+        <i class="el-icon-view" @click="openDrawer('preview',row.id)"></i>
+        <i class="el-icon-edit-outline" @click="openDrawer('edit',row.id)"></i>
         <i class="el-icon-delete" @click="del(row.id)"></i>
       </div>
     </template>
@@ -1562,7 +1558,7 @@ handleCurrentChange (val) {
 
 `添加  预览  修改`，都要打开抽屉，可以复用
 
-```jsx
+```js
 <el-button @click="openDrawer('add')" icon="el-icon-plus" size="small" type="primary" round>
   添加面经
 </el-button>
