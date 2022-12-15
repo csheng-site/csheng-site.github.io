@@ -62,127 +62,18 @@ element 项目的定位：
 ## 创建项目
 
 ```jsx
-vue create hm-element-pc
+vue create cms
 ```
 
 ![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/cms%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE.png)
 
-
-
-## sass/scss 语法说明
-
-```txt
-less sass stylus 都是 css 预处理器，语法上稍有差异，作用一样
-都是让 css，增强能力，具备变量，函数.. 的能力
-
-sass的语法两种语法 .sass(旧) .scss(新)
-1 .sass 和 .stylus 语法很像 (了解)
-  要求省略 {} 和 分号， 缩进表示嵌套
-  
-2 .scss 和 .less   语法很像， 都支持嵌套, 变量...
-  scss 声明变量：$变量名
-  less 声明变量: @变量名
-```
-
-
-
-
-
-## 调整项目目录
-
-默认生成的目录结构不满足我们的开发需求，所以这里需要做一些自定义改动。主要是两个工作：
-
-- 删除初始化的默认文件
-- 修改剩余代码内容
-- 新增调整我们需要的目录结构
-
-{% note success no-icon flat %}
-1. 删除文件
-  - components/HelloWorld.vue
-  - views/HomeView.vue
-  - views/AboutView.vue
-  - assets/logo.png
-
-2. 修改内容
-`src/router/index.js`
 ```jsx
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-
-Vue.use(VueRouter)
-
-const router = new VueRouter({
-  routes: []
-})
-
-export default router
+npm i element-ui axios echarts vue-quill-editor
+或
+yarn add element-ui axios echarts vue-quill-editor
 ```
-`src/App.vue`
-```jsx
-<template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
-</template>
-
-<style lang="scss">
-
-</style>
-```
-store/index.js  和 main.js 不用动
-
-3. 新增需要目录
-  在 src 目录下中补充创建以下目录：
-  - /api ： 存储请求函数模块
-  - /styles: 样式文件模块
-  - /utils: 工具函数模块
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95.png)
-
-4. 将项目需要的图片资源放置assets文件夹中
-{% endnote %}
-
-
-
 
 ## 引入 element-ui 组件库
-
-![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E5%BC%95%E5%85%A5%20element-ui%20%E7%BB%84%E4%BB%B6%E5%BA%93.png)
-
-官方文档: https://element.eleme.cn/#/zh-CN
-
-### 全部引入
-
-全部引入,  会导入所有的组件， 但是体积会变大
-
-- 安装
-
-```jsx
-yarn add element-ui
-```
-
-- 在`main.js`中
-
-```jsx
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
-```
-
-- 演示
-
-```jsx
-<el-button type="primary">主要按钮</el-button>
-```
-
-### 按需导入 (推荐)  
-
-减轻将来打包后的包的体积
-
-+ 安装
-
-```jsx
-yarn add element-ui
-```
 
 - 安装`babel-plugin-component`
 
@@ -210,57 +101,11 @@ module.exports = {
 }
 ```
 
-- 使用插件`main.js`中
-
-```jsx
-import { Button } from 'element-ui'
-Vue.use(Button)
-```
-
-### 抽离element.js模块
-
-- 由于组件的导入都书写到了`main.js`中,导致`main.js` 代码冗余
-
-  将element-ui组件的导入和注册单独抽离到utils文件夹中
-
-- 新建element.js 
-
-- **项目中 **  完整按需导入如下：
+- 新建`src/utils/element-ui.js`，项目中完整按需导入如下：
 
 ```jsx
 import Vue from 'vue';
-import {
-  Popconfirm,
-  Avatar,
-  Breadcrumb,
-  BreadcrumbItem,
-  Pagination,
-  Dialog,
-  Menu,
-  Input,
-  Option,
-  Button,
-  Table,
-  TableColumn,
-  Form,
-  FormItem,
-  Icon,
-  Row,
-  Col,
-  Card,
-  Container,
-  Header,
-  Aside,
-  Main,
-  Footer,
-  Link,
-  Image,
-  Loading,
-  MessageBox,
-  Message,
-  Drawer,
-  MenuItem
-} from 'element-ui';
+import { Popconfirm, Avatar, Breadcrumb, BreadcrumbItem, Pagination, Dialog, Menu, Input, Option, Button, Table, TableColumn, Form, FormItem, Icon, Row, Col, Card, Container, Header, Aside, Main, Footer, Link, Image, Loading, MessageBox, Message, Drawer, MenuItem } from 'element-ui';
 
 Vue.use(Breadcrumb);
 Vue.use(BreadcrumbItem);
@@ -304,13 +149,64 @@ Vue.prototype.$message = Message;
 - 直接导入main.js中
 
 ```jsx
-// 直接导入vant-ui.js
-import '@/utils/element.js'
+import '@/utils/element-ui.js'
 ```
 
+- 测试代码，在App.vue中
+
+```jsx
+<el-button type="primary">主要按钮</el-button>
+```
+
+## 调整项目目录
+
+默认生成的目录结构不满足我们的开发需求，所以这里需要做一些自定义改动。主要是两个工作：
+
+- 删除初始化的默认文件
+- 修改剩余代码内容
+- 新增调整我们需要的目录结构
+
+{% note success no-icon flat %}
+1. 删除文件
+  - components/HelloWorld.vue
+  - views/HomeView.vue
+  - views/AboutView.vue
+  - assets/logo.png
+
+2. 修改内容
+`src/router/index.js`
+```jsx
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  routes: []
+})
+
+export default router
+```
+`src/App.vue`
+```jsx
+<template>
+  <router-view></router-view>
+</template>
+```
+store/index.js  和 main.js 不用动
+
+3. 新增需要目录
+  在 src 目录下中补充创建以下目录：
+  - /api ： 存储请求函数模块
+  - /styles: 样式文件模块
+  - /utils: 工具函数模块
+![](https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/vue%E4%BA%BA%E8%B5%84%E9%A1%B9%E7%9B%AE/%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95.png)
+
+4. 将项目需要的图片资源放置assets文件夹中
+{% endnote %}
 
 
-### 导入公共样式
+## 导入公共样式
 
 新建 styles/index.scss
 
