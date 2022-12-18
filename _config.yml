@@ -222,7 +222,7 @@ magnet:
     - name: 后端1
       display_name: 后端教程
       icon: 🎮
-    - name: 工具1
+    - name: 工具1 
       display_name: 工具教程
       icon: 🐱‍👓
     - name: vue1
