@@ -3,7 +3,6 @@ title: vue面经H5后台管理
 date: 2022-12-10 00:00:00
 categories: "vue"
 cover: https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/%E9%9D%A2%E7%BB%8FH5%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E5%B0%81%E9%9D%A2.png
-sticky: 5
 ---
 
 vant 项目的定位：

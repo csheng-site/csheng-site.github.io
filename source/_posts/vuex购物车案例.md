@@ -3,7 +3,6 @@ title: Vuex购物车案例
 date: 2022-12-10 18:30:00
 categories: "vue"
 cover: https://csheng-fly.oss-cn-guangzhou.aliyuncs.com/Vuex%E8%B4%AD%E7%89%A9%E8%BD%A6%E6%A1%88%E4%BE%8B/Vuex%E8%B4%AD%E7%89%A9%E8%BD%A6%E5%B0%81%E9%9D%A2.png
-sticky: 3
 toc_expand: true
 ---
 
